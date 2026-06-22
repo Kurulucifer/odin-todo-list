@@ -9,6 +9,7 @@ function taskMaker(initName, initDate, initDetails, initNotes, initPriority) {
         details: initDetails,
         notes: initNotes, 
         priority: initPriority,
+        done: false,
     };
 
     const getField = (field) => task[field];

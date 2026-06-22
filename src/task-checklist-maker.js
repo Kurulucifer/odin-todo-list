@@ -5,7 +5,7 @@ function taskChecklistMaker(initName, initDate, initDetails, initNotes, initPrio
     const task = taskMaker(initName, initDate, initDetails, initNotes, initPriority);
     task.updateField( {type: "checklist"} );
 
-    let items = initItems.map(label => ( { label: label, done: false} ));
+    const items = initItems.map(label => ( { label: label, done: false} ));
 
     const getAllItems = () => [...items];
 
