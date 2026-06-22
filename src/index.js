@@ -1,15 +1,15 @@
 import "./stylesheet.css";
-import taskMaker from './task-maker.js';
-import taskChecklistMaker from "./task-checklist-maker.js";
+import projectMaker from "./project-maker.js";
 
-const name = "buy milk";
-const date = new Date();
-const details = "gotta buy milk from ralphs";
-const notes = "remember to bring the coupon";
-const priority = "3";
+const task1Name = "buy milk";
+const task1Date = new Date();
+const task1Details = "gotta buy milk from ralphs";
+const task1Notes = "remember to bring the coupon";
+const task1Priority = "3";
 
-const task1 = taskMaker(name, date, details, notes, priority);
-console.log(task1);
-console.log(task1.getField("name"));
-task1.updateField({name : "buy yogurt", details : "gotta buy yogurt from ralphs"});
-console.log(task1.getAllFields());
+const projectName = "Default";
+const projectDetails = "This is the default project.";
+const projectColor = "green";
+
+const project = projectMaker(projectName, projectDetails, projectColor);
+project.addTask(task1Name, task1Date, task1Details, task1Name, task1Notes, task1Priority);

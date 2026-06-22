@@ -2,6 +2,8 @@
 // not sure what the priority levels should be yet
 function taskMaker(initName, initDate, initDetails, initNotes, initPriority) {
     let task = {
+        type: "task",
+        id: crypto.randomUUID(),
         name: initName,
         date: initDate,
         details: initDetails,
