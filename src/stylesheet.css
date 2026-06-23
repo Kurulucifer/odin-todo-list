@@ -66,17 +66,13 @@ body, html {
     gap: 1rem;
 }
 
-.task-list > .task {
+.task-list > * {
     padding: 1rem;
     border: solid 2px purple;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-}
-
-.task > * {
-    padding: 0.2rem;
 }
 
 .task-list .name {
@@ -134,17 +130,10 @@ body, html {
 
 /* New Task Card*/
 
-.task-list > .edit-task {
-    padding: 1rem;
-    border: solid 2px purple;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
 .edit-task > *:not(hr, button),
-.edit-task > .date-time > * {
+.edit-task > .date-time > *,
+.task > *:not(hr, button),
+.task > .date-time > * {
     padding: 0.2rem;
     border: solid 1px transparent;
 }
@@ -167,6 +156,7 @@ input[type="time"] {
 }
 
 
+/* 
 
 .edit-task > .name[contenteditable]:empty::before {
     content: "Title";
@@ -191,7 +181,9 @@ input[type="time"] {
 .edit-task > .notes[contenteditable]:empty::before {
     content: "Notes";
     color: gray;
-} 
+}  
+
+*/
 
 
 

@@ -1,8 +1,8 @@
 import taskMaker from './task-maker.js';
 
 // initItems is an array of strings (labels)
-function taskChecklistMaker(initName, initDate, initDetails, initNotes, initPriority, initItems) {
-    const task = taskMaker(initName, initDate, initDetails, initNotes, initPriority);
+function taskChecklistMaker(taskFields, initItems) {
+    const task = taskMaker(taskFields);
     task.updateField( {type: "checklist"} );
 
     const items = initItems.map(label => ( { label: label, done: false} ));

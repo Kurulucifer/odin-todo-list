@@ -1,20 +1,19 @@
 import { format, parse, set } from "date-fns";
 
 function domNewTaskCardMaker(taskFields = {}) {
-    let task = {
-        name: "New Task",
-        date: null,
-        details: "Details",
-        notes: "Notes", 
-        priority: "low",
-    };
 
     // this will add "id", "done", and "type"
     // if they are available from an existing task
     // while editing
-    // otherwise a new UUID will be created upon 
-    // confirmation of a new task 
-    task = { ...task, ...taskFields }
+    // otherwise they will be filled by taskMaker
+    let task = {
+        name: "New Task",
+        date: new Date(),
+        details: "Details",
+        notes: "Notes", 
+        priority: "low",
+        ...taskFields,
+    };
     
     const newTaskCard = document.createElement("div");
     newTaskCard.className = "edit-task";
@@ -93,20 +92,11 @@ function domNewTaskCardMaker(taskFields = {}) {
     notes.textContent = task.notes;
     prioritySelect.value = task.priority;
 
-    if (!task.date) {
-        const currentDate = new Date();
-        task.date = currentDate;
-        date.textContent = format(currentDate, "M/d");
-        dateInput.value = format(currentDate, "yyyy-MM-dd");
-        time.textContent = format(currentDate, "H:mm");
-        timeInput.value = format(currentDate, "HH:mm");
-    }
-    else {
-        date.textContent = format(task.date, "M/d");
-        dateInput.value = format(task.date, "yyyy-MM-dd");
-        time.textContent = format(task.date, "H:mm");
-        timeInput.value = format(task.date, "HH:mm");
-    }
+    date.textContent = format(task.date, "M/d");
+    dateInput.value = format(task.date, "yyyy-MM-dd");
+    time.textContent = format(task.date, "H:mm");
+    timeInput.value = format(task.date, "HH:mm");
+
 
     newTaskCard.appendChild(name);
     newTaskCard.appendChild(dateTime);
@@ -116,7 +106,7 @@ function domNewTaskCardMaker(taskFields = {}) {
     newTaskCard.appendChild(priority);
     newTaskCard.appendChild(finishButtons);
 
-    addConfirmButtonListener(confirmButton, !task.id, newTaskCard, task);
+    addConfirmButtonListener(confirmButton, newTaskCard, task);
     addCancelButtonListener(cancelButton, !task.id, newTaskCard)
 
     return newTaskCard;
@@ -138,17 +128,17 @@ function addTimeListeners(timeDisplay, timeInput) {
     });
 }
 
-function addConfirmButtonListener(confirmButton, isNew, currentCard, task) {
+function addConfirmButtonListener(confirmButton, currentCard, task) {
     confirmButton.addEventListener('click', () => {
         const updatedTask = updateTaskFields(currentCard, task);
         const cardSaved = new CustomEvent("card-saved", {
             bubbles: true,
             detail: {
-                new: isNew,
                 task: updatedTask,
             }
         });
         currentCard.dispatchEvent(cardSaved);
+        currentCard.remove();
     })
 }
 

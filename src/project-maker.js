@@ -1,12 +1,13 @@
 import taskMaker from "./task-maker.js";
 import taskChecklistMaker from "./task-checklist-maker.js";
 
-function projectMaker(initName, initDetails, initColor) {
+function projectMaker(projectFields = {}) {
     let project = {
         id: crypto.randomUUID(),
-        name: initName,
-        details: initDetails,
-        color: initColor,
+        name: "New Project",
+        details: "Details",
+        color: "blue",
+        ...projectFields,
     }
 
     const taskList = [];
@@ -19,15 +20,16 @@ function projectMaker(initName, initDetails, initColor) {
         project = {...project, ...fields}
     };
 
-    const addTask = (initName, initDate, initDetails, initNotes, initPriority) => {
-        const task = taskMaker(initName, initDate, initDetails, initNotes, initPriority);
+    const addTask = (taskFields = {}) => {
+        const task = taskMaker(taskFields);
         taskList.push(task);
     };
 
-    const addTaskChecklist = (initName, initDate, initDetails, initNotes, initPriority, initItems) => {
-        const taskChecklist = taskChecklistMaker(initName, initDate, initDetails, initNotes, initPriority, initItems);
-        taskList.push(taskChecklist);
-    };
+    // DO THIS LATER!
+    // const addTaskChecklist = (initName, initDate, initDetails, initNotes, initPriority, initItems) => {
+    //     const taskChecklist = taskChecklistMaker(initName, initDate, initDetails, initNotes, initPriority, initItems);
+    //     taskList.push(taskChecklist);
+    // };
 
     const getTaskList = () => taskList;
 
@@ -45,7 +47,7 @@ function projectMaker(initName, initDetails, initColor) {
         getAllFields,
         updateField,
         addTask,
-        addTaskChecklist,
+        // addTaskChecklist,
         getTaskList,
         getTask,
         removeTask,

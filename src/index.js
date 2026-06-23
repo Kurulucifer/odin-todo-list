@@ -6,18 +6,11 @@ import projectMaker from "./project-maker.js";
 const projectName = "New Project";
 const projectDetails = "This is a new project.";
 const projectColor = "green";
-const projectObject = projectMaker(projectName, projectDetails, projectColor);
+const newProjectObject = { name: projectName, details: projectDetails, color: projectColor };
 
+const projectObject = projectMaker(newProjectObject);
 const project = domProjectMaker(projectObject);
 
 const projects = document.getElementById("projects");
 projects.appendChild(project);
-
-project.addEventListener('card-saved', (e) => {
-    console.log(e.detail.task);
-})
-
-project.addEventListener('discard-changes', (e) => {
-    console.log("Throw away!");
-})
 
