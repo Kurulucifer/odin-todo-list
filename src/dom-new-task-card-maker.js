@@ -17,6 +17,7 @@ function domNewTaskCardMaker(taskFields = {}) {
     
     const newTaskCard = document.createElement("div");
     newTaskCard.className = "edit-task";
+    newTaskCard.id = "new-task-card";
 
     const name = document.createElement("div");
     name.className = "name";
@@ -107,7 +108,7 @@ function domNewTaskCardMaker(taskFields = {}) {
     newTaskCard.appendChild(finishButtons);
 
     addConfirmButtonListener(confirmButton, newTaskCard, task);
-    addCancelButtonListener(cancelButton, !task.id, newTaskCard)
+    addCancelButtonListener(cancelButton, newTaskCard, task);
 
     return newTaskCard;
 }
@@ -129,14 +130,14 @@ function addTimeListeners(timeDisplay, timeInput) {
 }
 
 function addConfirmButtonListener(confirmButton, currentCard, task) {
+    const updatedTask = updateTaskFields(currentCard, task);
+    const cardSaved = new CustomEvent("card-saved", {
+        bubbles: true,
+        detail: {
+            task: updatedTask,
+        },
+    });
     confirmButton.addEventListener('click', () => {
-        const updatedTask = updateTaskFields(currentCard, task);
-        const cardSaved = new CustomEvent("card-saved", {
-            bubbles: true,
-            detail: {
-                task: updatedTask,
-            }
-        });
         currentCard.dispatchEvent(cardSaved);
         currentCard.remove();
     })
@@ -168,17 +169,15 @@ function updateTaskFields(currentCard, task) {
     return { ...task, ...newFields };
 }
 
-function addCancelButtonListener(cancelButton, isNew, currentCard) {
+function addCancelButtonListener(cancelButton, currentCard, task) {
+    const discardChanges = new CustomEvent("discard-changes", {
+        bubbles: true,
+        detail: {
+            taskID: task.id,
+        },
+    });
     cancelButton.addEventListener('click', () => {
-        if (isNew) {
-            currentCard.remove();
-        }
-        else {
-            const discardChanges = new CustomEvent("discard-changes", {
-                bubbles: true,
-            });
-            currentCard.dispatchEvent(discardChanges);
-        }
+        currentCard.dispatchEvent(discardChanges);
     })
 }
 

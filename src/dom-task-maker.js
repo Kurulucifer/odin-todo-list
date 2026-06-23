@@ -35,6 +35,18 @@ function domTaskMaker(task) {
     const notes = document.createElement("div");
     notes.className = "notes";
 
+    const editButtons = document.createElement("div");
+    editButtons.className = "edit-buttons";
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    const completeButton = document.createElement("button");
+    completeButton.textContent = "Complete";
+    editButtons.appendChild(deleteButton);
+    editButtons.appendChild(editButton);
+    editButtons.appendChild(completeButton);
+
     // filling in 
 
     name.textContent = task.getField("name");
@@ -49,6 +61,7 @@ function domTaskMaker(task) {
     taskCard.appendChild(details);
     taskCard.appendChild(border);
     taskCard.appendChild(notes);
+    taskCard.appendChild(editButtons);
 
     // DO THIS LATER!
     // if (task.getField("type") === "checklist") {
@@ -62,7 +75,21 @@ function domTaskMaker(task) {
     //     taskCard.appendChild(checklist);
     // }
 
+    attachDeleteListener(deleteButton, taskCard, task);
+
     return taskCard;
+}
+
+function attachDeleteListener(deleteButton, taskCard, task) {
+    const deleteCard = new CustomEvent("delete-card", {
+        bubbles: true,
+        detail: {
+            taskID: task.getField("id"),
+        },
+    });
+    deleteButton.addEventListener('click', () => {
+        taskCard.dispatchEvent(deleteCard);
+    });
 }
 
 export default domTaskMaker;

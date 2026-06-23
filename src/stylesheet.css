@@ -121,11 +121,20 @@ body, html {
     width: 50%;
 }
 
-.task-list .finish-buttons {
+.task-list .finish-buttons,
+.task-list .edit-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: auto;
+}
+
+.task-list .edit-buttons {
+    visibility: hidden;
+}
+
+.task-list .task:hover .edit-buttons {
+    visibility: visible;
 }
 
 /* New Task Card*/

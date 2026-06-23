@@ -21,20 +21,39 @@ function domProjectMaker(project) {
     projectCard.appendChild(newTaskButton);
     projectCard.appendChild(taskList);
 
-    attachProjectListeners(projectCard, project);
+    attachCardSavedListener(projectCard, project);
+    attachDiscardChangesListener(projectCard, project);
+    attachDeleteCardListener(projectCard, project);
 
     return projectCard;
 }
 
-function attachProjectListeners(projectCard, project) {
+function attachDiscardChangesListener(projectCard, project) {
+    projectCard.addEventListener('discard-changes', (e) => {
+        if (!e.detail.taskID) {
+            e.target.remove();
+        }
+        else {
+            // TBD
+        }
+    });
+}
+
+function attachCardSavedListener(projectCard, project) {
     projectCard.addEventListener('card-saved', (e) => {
         project.addTask(e.detail.task);
         const oldTaskList = projectCard.querySelector(".task-list");
         const newTaskList = refreshTaskList(project.getTaskList());
         oldTaskList.replaceWith(newTaskList);
     });
-    projectCard.addEventListener('discard-changes', (e) => {
-        console.log("Discarded a change!")
+}
+
+function attachDeleteCardListener(projectCard, project) {
+    projectCard.addEventListener('delete-card', (e) => {
+        project.removeTask(e.detail.taskID);
+        const oldTaskList = projectCard.querySelector(".task-list");
+        const newTaskList = refreshTaskList(project.getTaskList());
+        oldTaskList.replaceWith(newTaskList);
     });
 }
 
@@ -58,6 +77,10 @@ function makeNewTaskButton() {
     taskButtonDiv.appendChild(taskButton);
 
     taskButton.addEventListener('click', () => {
+        if (document.getElementById("new-task-card")) {
+            alert("Please finish creating or editing the current task!");
+            return;
+        }
         const taskList = taskButtonDiv.parentNode.querySelector(".task-list");
         taskList.prepend(domNewTaskCardMaker());
     });
