@@ -6,29 +6,43 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="test">Hello!</div>
-  <div class="projects">
-    <div class="project">
+  <div class="projects" id="projects">
+    <div class="project" id="default">
       <div class="project-name">
         Default
       </div>
-      <div class="project-details" data-id="123">
+      <div class="project-details">
         This is the default project.
       </div>
-      <div class="task-list">
-        <div class="task">
-          <div class="name">Task</div>
-          <div class="date">2/22</div>
-          <div class="details">This is a task.</div>
-          <div class="notes"></div> <!-- where to put notes? -->
+      <div class="new-task-button">
+        <button>Add a task</button>
+      </div>
+      <div class="task-list" id="1">
+        <div class="edit-task" data-id="789">
+          <div contenteditable="true" class="name"></div>
+          <div class="date-time">
+            <input class="date-input" type="date">
+            <div class="date">2/22</div>
+            <input class="time-input" type="time">
+            <div class="time">3:30</div>
+          </div>
+          <div contenteditable="true" class="details"></div>
+          <hr>
+          <div contenteditable="true" class="notes"></div> 
+          <!-- <div class="priority">
+            <label for="priority-select">Priority</label>
+            <select name="priority" id="priority-select">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div> -->
+          <div class="finish-buttons">
+            <button class="confirm">Confirm</button>
+            <button class="cancel">Cancel</button>
+          </div>
         </div>
-        <div class="task">
-          <div class="name">Task 2</div>
-          <div class="date">2/22</div>
-          <div class="details">This is another task.</div>
-          <div class="notes">Hello. I'm a task. Nice to meet you!</div>
-        </div>
-        <div class="task" data-id="456">
+        <div class="task" data-id="789">
           <div class="name">Task Checklist</div>
           <div class="date">2/22</div>
           <div class="details">This is a task checklist</div>

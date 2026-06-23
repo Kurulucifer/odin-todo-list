@@ -1,15 +1,17 @@
 import "./stylesheet.css";
-import projectMaker from "./project-maker.js";
+import domNewTaskCardMaker from "./dom-new-task-card-maker.js";
 
-const task1Name = "buy milk";
-const task1Date = new Date();
-const task1Details = "gotta buy milk from ralphs";
-const task1Notes = "remember to bring the coupon";
-const task1Priority = "3";
+const newCard = domNewTaskCardMaker();
 
-const projectName = "Default";
-const projectDetails = "This is the default project.";
-const projectColor = "green";
+const project = document.getElementById("default");
+project.addEventListener('card-saved', (e) => {
+    console.log(e.detail.task);
+})
 
-const project = projectMaker(projectName, projectDetails, projectColor);
-project.addTask(task1Name, task1Date, task1Details, task1Name, task1Notes, task1Priority);
+project.addEventListener('discard-changes', (e) => {
+    console.log("Throw away!");
+})
+
+const taskList = document.getElementById("1");
+taskList.prepend(newCard);
+

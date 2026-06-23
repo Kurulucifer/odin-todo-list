@@ -3,8 +3,9 @@ import taskChecklistMaker from "./task-checklist-maker.js";
 
 function projectMaker(initName, initDetails, initColor) {
     let project = {
+        id: crypto.randomUUID(),
         name: initName,
-        notes: initDetails,
+        details: initDetails,
         color: initColor,
     }
 
@@ -12,7 +13,7 @@ function projectMaker(initName, initDetails, initColor) {
 
     const getField = (field) => project[field];
 
-    const getAllFields = () => ( { ...task} );
+    const getAllFields = () => ( { ...project} );
 
     const updateField = (fields) => {
         project = {...project, ...fields}
@@ -31,7 +32,7 @@ function projectMaker(initName, initDetails, initColor) {
     const getTaskList = () => taskList;
 
     const getTask = (taskID) => {
-        taskList.find( (task) => task.getField("id") === taskID);
+        return taskList.find( (task) => task.getField("id") === taskID);
     };
 
     const removeTask = (taskID) => {
