@@ -130,23 +130,25 @@ function addTimeListeners(timeDisplay, timeInput) {
 }
 
 function addConfirmButtonListener(confirmButton, currentCard, task) {
-    const updatedTask = updateTaskFields(currentCard, task);
-    const cardSaved = new CustomEvent("card-saved", {
-        bubbles: true,
-        detail: {
-            task: updatedTask,
-        },
-    });
     confirmButton.addEventListener('click', () => {
+        const updatedTask = updateTaskFields(currentCard, task);
+        const cardSaved = new CustomEvent("card-saved", {
+            bubbles: true,
+            detail: {
+                task: updatedTask,
+            },
+        });
         currentCard.dispatchEvent(cardSaved);
         currentCard.remove();
     })
 }
 
 function updateTaskFields(currentCard, task) {
+    // Putting in defaults again just in case...
     const nameField = currentCard.querySelector(".name").textContent.trim() || "New Task";
     const detailsField = currentCard.querySelector(".details").textContent.trim() || "Details";
     const notesField = currentCard.querySelector(".notes").textContent.trim() || "Notes";
+    const priorityField = currentCard.querySelector("select[name='priority']").value;
 
     const dateInputValue = currentCard.querySelector(".date-input").value;
     const date = parse(dateInputValue, "yyyy-MM-dd", new Date());
@@ -164,6 +166,7 @@ function updateTaskFields(currentCard, task) {
         details: detailsField,
         notes: notesField,
         date: dateTimeField,
+        priority: priorityField,
     };
 
     return { ...task, ...newFields };

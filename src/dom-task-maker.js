@@ -76,6 +76,7 @@ function domTaskMaker(task) {
     // }
 
     attachDeleteListener(deleteButton, taskCard, task);
+    attachEditListener(editButton, taskCard, task);
 
     return taskCard;
 }
@@ -90,6 +91,18 @@ function attachDeleteListener(deleteButton, taskCard, task) {
     deleteButton.addEventListener('click', () => {
         taskCard.dispatchEvent(deleteCard);
     });
+}
+
+function attachEditListener(editButton, taskCard, task) {
+    const editCard = new CustomEvent("edit-card", {
+        bubbles: true,
+        detail: {
+            task: task.getAllFields(),
+        }
+    });
+    editButton.addEventListener('click', () => {
+        taskCard.dispatchEvent(editCard);
+    })
 }
 
 export default domTaskMaker;
