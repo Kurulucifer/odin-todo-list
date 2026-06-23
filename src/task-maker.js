@@ -1,6 +1,6 @@
 // all strings except initDate, which is a Date object, probably?
 // not sure what the priority levels should be yet
-function taskMaker(initName, initDate, initDetails, initNotes, initPriority) {
+function taskMaker(taskFields = {}) {
     let task = {
         type: "task",
         id: crypto.randomUUID(),
@@ -10,6 +10,7 @@ function taskMaker(initName, initDate, initDetails, initNotes, initPriority) {
         notes: initNotes, 
         priority: initPriority,
         done: false,
+        ...taskFields,
     };
 
     const getField = (field) => task[field];

@@ -1,8 +1,7 @@
-import { format, parse } from "date-fns";
+import { format, parse, set } from "date-fns";
 
 function domNewTaskCardMaker(taskFields = {}) {
     let task = {
-        id: "",
         name: "New Task",
         date: null,
         details: "Details",
@@ -10,7 +9,11 @@ function domNewTaskCardMaker(taskFields = {}) {
         priority: "low",
     };
 
-    // this will add "done" and "type"
+    // this will add "id", "done", and "type"
+    // if they are available from an existing task
+    // while editing
+    // otherwise a new UUID will be created upon 
+    // confirmation of a new task 
     task = { ...task, ...taskFields }
     
     const newTaskCard = document.createElement("div");
@@ -24,13 +27,13 @@ function domNewTaskCardMaker(taskFields = {}) {
     dateTime.className = "date-time";
 
     const dateInput = document.createElement("input");
-    dateInput.className = "dateInput";
+    dateInput.className = "date-input";
     dateInput.type = "date";
     const date = document.createElement("div");
     date.className = "date";
     addDateListeners(date, dateInput);
     const timeInput = document.createElement("input");
-    timeInput.className = "timeInput";
+    timeInput.className = "time-input";
     timeInput.type = "time";
     const time = document.createElement("div");
     time.className = "time";
@@ -154,11 +157,23 @@ function updateTaskFields(currentCard, task) {
     const detailsField = currentCard.querySelector(".details").textContent.trim() || "Details";
     const notesField = currentCard.querySelector(".notes").textContent.trim() || "Notes";
 
+    const dateInputValue = currentCard.querySelector(".date-input").value;
+    const date = parse(dateInputValue, "yyyy-MM-dd", new Date());
+
+    const timeInputValue = currentCard.querySelector(".time-input").value;
+    const time = parse(timeInputValue, "HH:mm", new Date());
+
+    const dateTimeField = set(date, {
+        hours: time.getHours(),
+        minutes: time.getMinutes(),
+    });
+
     const newFields = {
         name: nameField,
         details: detailsField,
         notes: notesField,
-    }
+        date: dateTimeField,
+    };
 
     return { ...task, ...newFields };
 }
