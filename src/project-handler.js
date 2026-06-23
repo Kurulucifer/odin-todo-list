@@ -25,6 +25,6 @@ const projectHandler = () => {
         removeProject,
         getProjectList,
     }
-}
+};
 
 export default projectHandler;

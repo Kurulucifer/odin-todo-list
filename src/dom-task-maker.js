@@ -5,7 +5,7 @@ function domTaskMaker(task) {
 
     const defaultFields = ["name", "date", "details", "notes"];
 
-    for (field of defaultFields) {
+    for (const field of defaultFields) {
         const element = document.createElement("div");
         element.className = field;
         element.textContent = task.getField(field);

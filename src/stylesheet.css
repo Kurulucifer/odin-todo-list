@@ -23,6 +23,7 @@ body, html {
     padding: 1rem;
     border: solid 2px blue;
     border-radius: 1rem;
+    gap: 2rem;
 }
 
 .project {

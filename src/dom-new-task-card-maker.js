@@ -2,17 +2,15 @@ import { format, parse } from "date-fns";
 
 function domNewTaskCardMaker(taskFields = {}) {
     let task = {
-        type: "task",
         id: "",
         name: "New Task",
         date: null,
         details: "Details",
         notes: "Notes", 
         priority: "low",
-        done: false,
     };
 
-    // maybe delete "done" key because it's unnecessary
+    // this will add "done" and "type"
     task = { ...task, ...taskFields }
     
     const newTaskCard = document.createElement("div");
