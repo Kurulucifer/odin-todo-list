@@ -15,11 +15,14 @@ function domProjectMaker(project) {
         projectCard.appendChild(element);
     }
 
-    const taskList = refreshTaskList(project.getTaskList());
+    let taskList = document.createElement("div");
+    taskList.className = "task-list";
+    const newTaskList = refreshTaskList(taskList, project.getTaskList());
     const newTaskButton = makeNewTaskButton();
 
+
     projectCard.appendChild(newTaskButton);
-    projectCard.appendChild(taskList);
+    projectCard.appendChild(newTaskList);
 
     attachCardSavedListener(projectCard, project);
     attachDiscardChangesListener(projectCard, project);
@@ -43,7 +46,7 @@ function attachCardSavedListener(projectCard, project) {
     projectCard.addEventListener('card-saved', (e) => {
         project.addTask(e.detail.task);
         const oldTaskList = projectCard.querySelector(".task-list");
-        const newTaskList = refreshTaskList(project.getTaskList());
+        const newTaskList = refreshTaskList(oldTaskList, project.getTaskList());
         oldTaskList.replaceWith(newTaskList);
     });
 }
@@ -52,18 +55,29 @@ function attachDeleteCardListener(projectCard, project) {
     projectCard.addEventListener('delete-card', (e) => {
         project.removeTask(e.detail.taskID);
         const oldTaskList = projectCard.querySelector(".task-list");
-        const newTaskList = refreshTaskList(project.getTaskList());
+        const newTaskList = refreshTaskList(oldTaskList, project.getTaskList());
         oldTaskList.replaceWith(newTaskList);
     });
 }
 
-function refreshTaskList(projectTasks) {
+function refreshTaskList(oldTaskList, projectTasks) {
     const taskList = document.createElement("div");
     taskList.className = "task-list";
 
+    let domTaskList = [];
+
+    const editTasks = oldTaskList.querySelectorAll(".edit-task");
+    if (editTasks) {
+        domTaskList = [...editTasks];
+    }
+
     for (const task of projectTasks) {
         const taskCard = domTaskMaker(task);
-        taskList.appendChild(taskCard);
+        domTaskList.push(taskCard);
+    }
+
+    for (const task of domTaskList) {
+        taskList.appendChild(task);
     }
 
     return taskList;
