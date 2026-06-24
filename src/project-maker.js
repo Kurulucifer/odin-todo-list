@@ -25,6 +25,16 @@ function projectMaker(projectFields = {}) {
         taskList.push(task);
     };
 
+    const sortTasks = () => {
+        taskList.sort( () => {
+            const priorities = {
+                low: 1,
+                medium: 2,
+                high: 3,
+            }
+        })
+    }
+
     // DO THIS LATER!
     // const addTaskChecklist = (initName, initDate, initDetails, initNotes, initPriority, initItems) => {
     //     const taskChecklist = taskChecklistMaker(initName, initDate, initDetails, initNotes, initPriority, initItems);

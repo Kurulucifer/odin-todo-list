@@ -62,13 +62,14 @@ body, html {
 .task-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+    align-items: start;
     padding: 1rem;
     gap: 1rem;
 }
 
 .task-list > * {
     padding: 1rem;
-    border: solid 2px purple;
+    border: solid 2px;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -107,7 +108,7 @@ body, html {
 }
 
 .task-list hr {
-    border-top: 1px solid black;
+    border-top: 1px solid;
     width: 100%;
 }
 
@@ -122,9 +123,7 @@ body, html {
     justify-content: space-between;
 }
 
-.priority > select {
-    width: 50%;
-}
+
 
 .task-list .finish-buttons,
 .task-list .edit-buttons {
@@ -142,12 +141,15 @@ body, html {
     border-radius: 1rem;
 }
 
+.task .collapsible {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .task .hidden {
     display: none;
 }
-
-
-/* New Task Card*/
 
 .edit-task > *:not(hr, button),
 .edit-task > .date-time > *,
@@ -157,17 +159,20 @@ body, html {
     border: solid 1px transparent;
 }
 
+/* New Task Card*/
+
+.priority > select {
+    width: 50%;
+}
+
 .edit-task > *:not(hr, button, .date-time, .finish-buttons):hover,
 .edit-task > .date-time > *:hover {
     border: solid 1px black;
 }
 
-/* Completed Cards */
 
-.done .name,
-.done .details,
-.done .date-time {
-    text-decoration: line-through;
+.edit-task *:empty::before {
+    cursor: text;
 }
 
 input[type="date"],
@@ -178,39 +183,33 @@ input[type="time"] {
     height: 0;
 }
 
-.edit-task *:empty::before {
-    cursor: text;
+/* Completed Cards */
+
+.done .name,
+.done .details,
+.done .date-time {
+    text-decoration: line-through;
 }
 
+/* Priority */
 
-/* 
-
-.edit-task > .name[contenteditable]:empty::before {
-    content: "Title";
-    color: gray;
+.priority-low {
+    border-top: solid 8px green;
 }
 
-.edit-task > .date-time > .date:empty::before {
-    content: "Date";
-    color: gray;
+.priority-medium {
+    border-top: solid 8px orange;
 }
 
-.edit-task > .date-time > .time:empty::before {
-    content: "Time";
-    color: gray;
+.priority-high {
+    border-top: solid 8px red;
 }
 
-.edit-task > .details[contenteditable]:empty::before {
-    content: "Details";
-    color: gray;
+.priority-low.done,
+.priority-medium.done,
+.priority-high.done {
+    border-top: solid 8px black;
 }
-
-.edit-task > .notes[contenteditable]:empty::before {
-    content: "Notes";
-    color: gray;
-}  
-
-*/
 
 
 

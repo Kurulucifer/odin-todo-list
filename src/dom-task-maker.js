@@ -2,11 +2,13 @@ import { format } from "date-fns";
 
 function domTaskMaker(task) {
     const taskCard = document.createElement("div");
-    taskCard.className = "task";
+    const taskCardClasses = taskCard.classList;
+    taskCardClasses.add("task");
+    taskCardClasses.add(`priority-${task.getField("priority")}`);
     taskCard.dataset.id = task.getField("id");
 
     if (task.getField("done")) {
-        taskCard.className = "task done";
+        taskCardClasses.add("done");
     }
 
     const expandCollapseButton = document.createElement("button");
@@ -38,23 +40,20 @@ function domTaskMaker(task) {
     const details = document.createElement("div");
     details.className = "details";
 
+    const collapsibleBlock = document.createElement("div");
+    const collapsibleBlockClasses = collapsibleBlock.classList;
+    collapsibleBlockClasses.add("collapsible");
+    collapsibleBlockClasses.add("hidden");
+
+
     const border = document.createElement("hr");
-    const borderClasses = border.classList;
-    borderClasses.add("collapsible");
-    borderClasses.add("hidden");
+
 
     const notes = document.createElement("div");
-    const notesClasses = notes.classList;
-    notesClasses.add("notes");
-    notesClasses.add("collapsible");
-    notesClasses.add("hidden");
+    notes.className = "notes";
 
     const editButtons = document.createElement("div");
-    const editButtonsClasses = editButtons.classList;
-    editButtonsClasses.add("edit-buttons");
-    editButtonsClasses.add("collapsible");
-    editButtonsClasses.add("hidden");
-
+    editButtons.className = "edit-buttons";
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     const editButton = document.createElement("button");
@@ -64,6 +63,10 @@ function domTaskMaker(task) {
     editButtons.appendChild(deleteButton);
     editButtons.appendChild(editButton);
     editButtons.appendChild(completeButton);
+
+    collapsibleBlock.appendChild(border);
+    collapsibleBlock.appendChild(notes);
+    collapsibleBlock.appendChild(editButtons);
 
     // filling in 
 
@@ -78,9 +81,7 @@ function domTaskMaker(task) {
     taskCard.appendChild(name);
     taskCard.appendChild(dateTime);
     taskCard.appendChild(details);
-    taskCard.appendChild(border);
-    taskCard.appendChild(notes);
-    taskCard.appendChild(editButtons);
+    taskCard.appendChild(collapsibleBlock);
 
     // DO THIS LATER!
     // if (task.getField("type") === "checklist") {
@@ -143,10 +144,8 @@ function attachExpandCollapseListener(expandCollapseButton, taskCard) {
         if (e.target.matches("button") && !e.target.matches(".expand-collapse")) {
             return;
         }
-        const collapsibles = taskCard.querySelectorAll(".collapsible");
-        for (const element of collapsibles) {
-            element.classList.toggle("hidden");
-        }
+        const collapsible = taskCard.querySelector(".collapsible");
+        collapsible.classList.toggle("hidden");
     });
 }
 
