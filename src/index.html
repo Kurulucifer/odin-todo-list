@@ -66,5 +66,31 @@
       </div>
     </div>
   </div>
+  <template id="edit-task-card-template">
+    <div class="edit-task">
+      <div class="name" contenteditable="true"></div>
+      <div class="date-time">
+          <input class="date-input" type="date">
+          <div class="date"></div>
+          <input class="time-input" type="time">
+          <div class="time"></div>
+      </div>
+      <div class="details" contenteditable="true"></div>
+      <hr>
+      <div class="notes" contenteditable="true"></div>
+      <div class="priority">
+          <label for="priority-select">Priority</label>
+          <select name="priority" id="priority-select">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+          </select>
+      </div>
+      <div class="finish-buttons">
+          <button class="confirm-button">Confirm</button>
+          <button class="cancel-button">Cancel</button>
+      </div>
+    </div>
+  </template>
 </body>
 </html>

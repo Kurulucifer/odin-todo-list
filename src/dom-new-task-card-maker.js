@@ -14,79 +14,26 @@ function domNewTaskCardMaker(taskFields = {}) {
         priority: "low",
         ...taskFields,
     };
-    
-    const newTaskCard = document.createElement("div");
-    newTaskCard.className = "edit-task";
-    newTaskCard.id = "new-task-card";
 
-    const name = document.createElement("div");
-    name.className = "name";
-    name.contentEditable = "true";
-    
-    const dateTime = document.createElement("div");
-    dateTime.className = "date-time";
+    const editTaskCardTemplate = document.getElementById("edit-task-card-template").content.querySelector(".edit-task");
+    const editTaskCard = editTaskCardTemplate.cloneNode(true);
 
-    const dateInput = document.createElement("input");
-    dateInput.className = "date-input";
-    dateInput.type = "date";
-    const date = document.createElement("div");
-    date.className = "date";
+    const date = editTaskCard.querySelector(".date");
+    const dateInput = editTaskCard.querySelector(".date-input");
     addDateListeners(date, dateInput);
-    const timeInput = document.createElement("input");
-    timeInput.className = "time-input";
-    timeInput.type = "time";
-    const time = document.createElement("div");
-    time.className = "time";
+
+    const time = editTaskCard.querySelector(".time");
+    const timeInput = editTaskCard.querySelector(".time-input");
     addTimeListeners(time, timeInput);
-
-    dateTime.appendChild(dateInput);
-    dateTime.appendChild(date);
-    dateTime.appendChild(timeInput);
-    dateTime.appendChild(time);
-
-    const details = document.createElement("div");
-    details.className = "details";
-    details.contentEditable = "true";
-
-    const border = document.createElement("hr");
-
-    const notes = document.createElement("div");
-    notes.className = "notes";
-    notes.contentEditable = "true";
-
-    const priority = document.createElement("div");
-    priority.className = "priority";
-    const priorityLabel = document.createElement("label");
-    priorityLabel.htmlFor = "priority-select";
-    priorityLabel.textContent = "Priority";
-    const prioritySelect = document.createElement("select");
-    prioritySelect.name = "priority";
-    prioritySelect.id= "priority-select";
-    const optionLow = document.createElement("option");
-    optionLow.value = "low";
-    optionLow.textContent = "Low";
-    const optionMedium = document.createElement("option");
-    optionMedium.value = "medium";
-    optionMedium.textContent = "Medium";
-    const optionHigh = document.createElement("option");
-    optionHigh.value = "high";
-    optionHigh.textContent = "High";
-    prioritySelect.appendChild(optionLow);
-    prioritySelect.appendChild(optionMedium);
-    prioritySelect.appendChild(optionHigh);
-    priority.appendChild(priorityLabel);
-    priority.appendChild(prioritySelect);
     
-    const finishButtons = document.createElement("div");
-    finishButtons.className = "finish-buttons";
-    const confirmButton = document.createElement("button");
-    confirmButton.textContent = "Confirm";
-    const cancelButton = document.createElement("button");
-    cancelButton.textContent = "Cancel";
-    finishButtons.appendChild(confirmButton);
-    finishButtons.appendChild(cancelButton);
-
     // pre-filling
+
+    const name = editTaskCard.querySelector(".name");
+    const details = editTaskCard.querySelector(".details");
+    const notes = editTaskCard.querySelector(".notes");
+    const prioritySelect = editTaskCard.querySelector("select[name='priority']");
+    const confirmButton = editTaskCard.querySelector(".confirm-button");
+    const cancelButton = editTaskCard.querySelector(".cancel-button");
 
     name.textContent = task.name;
     details.textContent = task.details;
@@ -98,19 +45,10 @@ function domNewTaskCardMaker(taskFields = {}) {
     time.textContent = format(task.date, "H:mm");
     timeInput.value = format(task.date, "HH:mm");
 
+    addConfirmButtonListener(confirmButton, editTaskCard, task);
+    addCancelButtonListener(cancelButton, editTaskCard, task);
 
-    newTaskCard.appendChild(name);
-    newTaskCard.appendChild(dateTime);
-    newTaskCard.appendChild(details);
-    newTaskCard.appendChild(border);
-    newTaskCard.appendChild(notes);
-    newTaskCard.appendChild(priority);
-    newTaskCard.appendChild(finishButtons);
-
-    addConfirmButtonListener(confirmButton, newTaskCard, task);
-    addCancelButtonListener(cancelButton, newTaskCard, task);
-
-    return newTaskCard;
+    return editTaskCard;
 }
 
 function addDateListeners(dateDisplay, dateInput) {
@@ -143,6 +81,18 @@ function addConfirmButtonListener(confirmButton, currentCard, task) {
     })
 }
 
+function addCancelButtonListener(cancelButton, currentCard, task) {
+    const discardChanges = new CustomEvent("discard-changes", {
+        bubbles: true,
+        detail: {
+            taskID: task.id,
+        },
+    });
+    cancelButton.addEventListener('click', () => {
+        currentCard.dispatchEvent(discardChanges);
+    })
+}
+
 function updateTaskFields(currentCard, task) {
     // Putting in defaults again just in case...
     const nameField = currentCard.querySelector(".name").textContent.trim() || "New Task";
@@ -172,16 +122,6 @@ function updateTaskFields(currentCard, task) {
     return { ...task, ...newFields };
 }
 
-function addCancelButtonListener(cancelButton, currentCard, task) {
-    const discardChanges = new CustomEvent("discard-changes", {
-        bubbles: true,
-        detail: {
-            taskID: task.id,
-        },
-    });
-    cancelButton.addEventListener('click', () => {
-        currentCard.dispatchEvent(discardChanges);
-    })
-}
+
 
 export default domNewTaskCardMaker;

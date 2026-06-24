@@ -193,6 +193,10 @@ input[type="time"] {
 
 /* Priority */
 
+ {
+    border-top:
+}
+
 .priority-low {
     border-top: solid 8px green;
 }
@@ -207,7 +211,8 @@ input[type="time"] {
 
 .priority-low.done,
 .priority-medium.done,
-.priority-high.done {
+.priority-high.done,
+.edit-task {
     border-top: solid 8px black;
 }
 
