@@ -35,6 +35,7 @@
           </div>
         </div>
         <div class="task">
+          <button class="expand-collapse">-</button>
           <div contenteditable="true" class="name">New Task</div>
           <div class="date-time">
             <input class="date-input" type="date">
@@ -42,10 +43,10 @@
             <input class="time-input" type="time">
             <div class="time">3:30</div>
           </div>
-          <div contenteditable="true" class="details">Details</div>
-          <hr>
-          <div contenteditable="true" class="notes">Notes</div> 
-          <div class="edit-buttons">
+          <div class="details">Details</div>
+          <hr class="collapsible hidden">
+          <div contenteditable="true" class="notes collapsible hidden">Notes</div> 
+          <div class="edit-buttons collapsible hidden">
             <button class="delete">Delete</button>
             <button class="edit">Edit</button>
             <button class="complete">Complete</button>

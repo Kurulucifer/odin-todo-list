@@ -28,6 +28,7 @@ function domProjectMaker(project) {
     attachDiscardChangesListener(projectCard, project);
     attachDeleteCardListener(projectCard, project);
     attachEditCardListener(projectCard, project);
+    attachCompleteCardListener(projectCard, project);
 
     return projectCard;
 }
@@ -64,9 +65,16 @@ function attachDeleteCardListener(projectCard, project) {
 
 function attachEditCardListener(projectCard, project) {
     projectCard.addEventListener('edit-card', (e) => {
-        const editCard = domNewTaskCardMaker(e.detail.task);
+        const editCard = domNewTaskCardMaker(e.detail.taskFields);
         e.target.replaceWith(editCard);
     });
+}
+
+function attachCompleteCardListener(projectCard, project) {
+    projectCard.addEventListener('complete-card', (e) => {
+        project.getTask(e.detail.taskID).toggleDone();
+        refreshTaskList(projectCard, project.getTaskList());
+    })
 }
 
 function refreshTaskList(projectCard, projectTasks) {

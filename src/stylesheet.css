@@ -73,6 +73,11 @@ body, html {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    overflow-wrap: break-word;
+}
+
+.task-list .task {
+    position: relative;
 }
 
 .task-list .name {
@@ -129,13 +134,18 @@ body, html {
     margin-top: auto;
 }
 
-.task-list .edit-buttons {
-    visibility: hidden;
+.task .expand-collapse {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-weight: 700;
+    border-radius: 1rem;
 }
 
-.task-list .task:hover .edit-buttons {
-    visibility: visible;
+.task .hidden {
+    display: none;
 }
+
 
 /* New Task Card*/
 
@@ -150,6 +160,14 @@ body, html {
 .edit-task > *:not(hr, button, .date-time, .finish-buttons):hover,
 .edit-task > .date-time > *:hover {
     border: solid 1px black;
+}
+
+/* Completed Cards */
+
+.done .name,
+.done .details,
+.done .date-time {
+    text-decoration: line-through;
 }
 
 input[type="date"],

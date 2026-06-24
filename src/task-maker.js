@@ -22,11 +22,16 @@ function taskMaker(taskFields = {}) {
     const updateField = (fields) => {
         task = {...task, ...fields}
     };
+
+    const toggleDone = () => {
+        task.done = !task.done;
+    };
     
     return {
         getField,
         updateField,
         getAllFields,
+        toggleDone,
     };
 };
 

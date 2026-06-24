@@ -5,6 +5,14 @@ function domTaskMaker(task) {
     taskCard.className = "task";
     taskCard.dataset.id = task.getField("id");
 
+    if (task.getField("done")) {
+        taskCard.className = "task done";
+    }
+
+    const expandCollapseButton = document.createElement("button");
+    expandCollapseButton.className = "expand-collapse";
+    expandCollapseButton.textContent = "-";
+
     const name = document.createElement("div");
     name.className = "name";
     
@@ -31,12 +39,22 @@ function domTaskMaker(task) {
     details.className = "details";
 
     const border = document.createElement("hr");
+    const borderClasses = border.classList;
+    borderClasses.add("collapsible");
+    borderClasses.add("hidden");
 
     const notes = document.createElement("div");
-    notes.className = "notes";
+    const notesClasses = notes.classList;
+    notesClasses.add("notes");
+    notesClasses.add("collapsible");
+    notesClasses.add("hidden");
 
     const editButtons = document.createElement("div");
-    editButtons.className = "edit-buttons";
+    const editButtonsClasses = editButtons.classList;
+    editButtonsClasses.add("edit-buttons");
+    editButtonsClasses.add("collapsible");
+    editButtonsClasses.add("hidden");
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     const editButton = document.createElement("button");
@@ -56,6 +74,7 @@ function domTaskMaker(task) {
     date.textContent = format(task.getField("date"), "M/d");
     time.textContent = format(task.getField("date"), "H:mm");
 
+    taskCard.appendChild(expandCollapseButton);
     taskCard.appendChild(name);
     taskCard.appendChild(dateTime);
     taskCard.appendChild(details);
@@ -77,6 +96,8 @@ function domTaskMaker(task) {
 
     attachDeleteListener(deleteButton, taskCard, task);
     attachEditListener(editButton, taskCard, task);
+    attachCompleteListener(completeButton, taskCard, task);
+    attachExpandCollapseListener(expandCollapseButton, taskCard);
 
     return taskCard;
 }
@@ -97,12 +118,36 @@ function attachEditListener(editButton, taskCard, task) {
     const editCard = new CustomEvent("edit-card", {
         bubbles: true,
         detail: {
-            task: task.getAllFields(),
+            taskFields: task.getAllFields(),
         }
     });
     editButton.addEventListener('click', () => {
         taskCard.dispatchEvent(editCard);
-    })
+    });
+}
+
+function attachCompleteListener(completeButton, taskCard, task) {
+    const completeCard = new CustomEvent("complete-card", {
+        bubbles: true,
+        detail: {
+            taskID: task.getField("id"),
+        }
+    });
+    completeButton.addEventListener('click', () => {
+        taskCard.dispatchEvent(completeCard);
+    });
+}
+
+function attachExpandCollapseListener(expandCollapseButton, taskCard) {
+    expandCollapseButton.addEventListener('click', (e) => {
+        if (e.target.matches("button") && !e.target.matches(".expand-collapse")) {
+            return;
+        }
+        const collapsibles = taskCard.querySelectorAll(".collapsible");
+        for (const element of collapsibles) {
+            element.classList.toggle("hidden");
+        }
+    });
 }
 
 export default domTaskMaker;
