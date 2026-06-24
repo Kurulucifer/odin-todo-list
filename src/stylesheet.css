@@ -123,14 +123,46 @@ body, html {
     justify-content: space-between;
 }
 
-
-
 .task-list .finish-buttons,
 .task-list .edit-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: auto;
+}
+
+
+.task-list .checklist {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.2rem;
+}
+
+
+.task-list .checklist-item {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 0.5rem;
+}
+
+.checklist-item .item-content {
+    padding: 0.2rem;
+}
+
+.checklist-item .item-checkbox {
+    margin-top: 0.4rem;
+}
+
+.checklist-item .item-delete {
+    border-radius: 1rem;
+    margin-top: 0.2rem;
+}
+
+.task-list .add-checklist-item {
+    margin-top: 0.4rem;
+    width: 100%;
 }
 
 .task .expand-collapse {
@@ -151,6 +183,7 @@ body, html {
     display: none;
 }
 
+
 .edit-task > *:not(hr, button),
 .edit-task > .date-time > *,
 .task > *:not(hr, button),
@@ -161,6 +194,16 @@ body, html {
 
 /* New Task Card*/
 
+.edit-task .hidden {
+    display: none;
+}
+
+.edit-task .make-checklist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .priority > select {
     width: 50%;
 }
@@ -169,7 +212,6 @@ body, html {
 .edit-task > .date-time > *:hover {
     border: solid 1px black;
 }
-
 
 .edit-task *:empty::before {
     cursor: text;
@@ -183,19 +225,17 @@ input[type="time"] {
     height: 0;
 }
 
-/* Completed Cards */
+/* Completed Content */
 
 .done .name,
 .done .details,
-.done .date-time {
+.done .date-time,
+.done .item-content {
     text-decoration: line-through;
 }
 
-/* Priority */
 
- {
-    border-top:
-}
+/* Priority */
 
 .priority-low {
     border-top: solid 8px green;

@@ -19,53 +19,44 @@
       </div>
       <div class="task-list" id="1">
         <div class="edit-task">
-          <div contenteditable="true" class="name">New Task</div>
+          <div class="name" contenteditable="true">New task</div>
           <div class="date-time">
-            <input class="date-input" type="date">
-            <div class="date">2/22</div>
-            <input class="time-input" type="time">
-            <div class="time">3:30</div>
+              <input class="date-input" type="date">
+              <div class="date">2/22</div>
+              <input class="time-input" type="time">
+              <div class="time">2:22</div>
           </div>
-          <div contenteditable="true" class="details">Details</div>
+          <div class="details" contenteditable="true">Some details</div>
           <hr>
-          <div contenteditable="true" class="notes">Notes</div> 
-          <div class="finish-buttons">
-            <button class="confirm">Confirm</button>
-            <button class="cancel">Cancel</button>
+          <div class="make-checklist">
+            <div>Checklist</div>
+            <input class="checklist-checkbox" type="checkbox">
           </div>
-        </div>
-        <div class="task">
-          <button class="expand-collapse">-</button>
-          <div contenteditable="true" class="name">New Task</div>
-          <div class="date-time">
-            <input class="date-input" type="date">
-            <div class="date">2/22</div>
-            <input class="time-input" type="time">
-            <div class="time">3:30</div>
-          </div>
-          <div class="details">Details</div>
-          <hr class="collapsible hidden">
-          <div contenteditable="true" class="notes collapsible hidden">Notes</div> 
-          <div class="edit-buttons collapsible hidden">
-            <button class="delete">Delete</button>
-            <button class="edit">Edit</button>
-            <button class="complete">Complete</button>
-          </div>
-        </div>
-        <div class="task" data-id="789">
-          <div class="name">Task Checklist</div>
-          <div class="date">2/22</div>
-          <div class="details">This is a task checklist</div>
-          <div class="notes">Hello. I'm a task. Nice to meet you!</div> 
           <div class="checklist">
-            <div class="checklist-item">Item 1</div>
-            <div class="checklist-item">Item 2</div>
-            <div class="checklist-item">Item 3</div>
+            <div class="checklist-item">
+              <button class="item-delete">X</button>
+              <div class="item-content" contenteditable="true">New checklist item</div>
+            </div>
+            <button class="add-checklist-item">+</button>
+          </div>
+          <div class="notes" contenteditable="true">Some notes</div>
+          <div class="priority">
+              <label for="priority-select">Priority</label>
+              <select name="priority" id="priority-select">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+              </select>
+          </div>
+          <div class="finish-buttons">
+              <button class="confirm-button">Confirm</button>
+              <button class="cancel-button">Cancel</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- Card Templates -->
   <template id="edit-task-card-template">
     <div class="edit-task">
       <div class="name" contenteditable="true"></div>
@@ -77,6 +68,17 @@
       </div>
       <div class="details" contenteditable="true"></div>
       <hr>
+      <div class="make-checklist">
+        <div>Checklist</div>
+        <input class="checklist-checkbox" type="checkbox">
+      </div>
+      <div class="checklist">
+        <div class="checklist-item">
+          <button class="item-delete">X</button>
+          <div class="item-content" contenteditable="true">New checklist item</div>
+        </div>
+        <button class="add-checklist-item">+</button>
+      </div>
       <div class="notes" contenteditable="true"></div>
       <div class="priority">
           <label for="priority-select">Priority</label>
@@ -105,6 +107,13 @@
       <div class="details"></div>
       <div class="collapsible hidden">
           <hr>
+          <div class="checklist">
+            <div class="checklist-item">
+              <input class="item-checkbox" type="checkbox" disabled>
+              <div class="item-content" contenteditable="true">New checklist item</div>
+            </div>
+            <button class="add-checklist-item">+</button>
+          </div>
           <div class="notes"></div>
           <div class="edit-buttons">
               <button class="delete-button">Delete</button>

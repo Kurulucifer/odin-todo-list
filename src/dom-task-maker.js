@@ -30,18 +30,6 @@ function domTaskMaker(task) {
     date.textContent = format(task.getField("date"), "M/d");
     time.textContent = format(task.getField("date"), "H:mm");
 
-    // DO THIS LATER!
-    // if (task.getField("type") === "checklist") {
-    //     const checklist = document.createElement("div");
-    //     for (item in task.getAllItems()) {
-    //         const listItem = document.createElement("div");
-    //         listItem.className = "checklist-item";
-    //         listItem.textContent = item.label;
-    //         checklist.appendChild(listItem);
-    //     }
-    //     taskCard.appendChild(checklist);
-    // }
-
     attachDeleteListener(deleteButton, taskCard, task);
     attachEditListener(editButton, taskCard, task);
     attachCompleteListener(completeButton, taskCard, task);

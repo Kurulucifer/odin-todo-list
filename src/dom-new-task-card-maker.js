@@ -1,10 +1,9 @@
-import { format, parse, set } from "date-fns";
+import { add, format, parse, set } from "date-fns";
 
 function domNewTaskCardMaker(taskFields = {}) {
 
     // this will add "id", "done", and "type"
-    // if they are available from an existing task
-    // while editing
+    // if they are available from an existing task while editing
     // otherwise they will be filled by taskMaker
     let task = {
         name: "New Task",
@@ -32,8 +31,7 @@ function domNewTaskCardMaker(taskFields = {}) {
     const details = editTaskCard.querySelector(".details");
     const notes = editTaskCard.querySelector(".notes");
     const prioritySelect = editTaskCard.querySelector("select[name='priority']");
-    const confirmButton = editTaskCard.querySelector(".confirm-button");
-    const cancelButton = editTaskCard.querySelector(".cancel-button");
+    const checklistCheckbox = editTaskCard.querySelector(".checklist-checkbox");
 
     name.textContent = task.name;
     details.textContent = task.details;
@@ -45,10 +43,49 @@ function domNewTaskCardMaker(taskFields = {}) {
     time.textContent = format(task.date, "H:mm");
     timeInput.value = format(task.date, "HH:mm");
 
+    if (task.type = "checklist") {
+        checklistCheckbox.value = "1";
+        checklistCheckbox.disabled = true; // sorry, no task intercoversion (yet)
+        addExistingChecklistItems(editTaskCard, task);
+    }
+
+    // button event listeners
+
+    const confirmButton = editTaskCard.querySelector(".confirm-button");
+    const cancelButton = editTaskCard.querySelector(".cancel-button");
+    const addItemButton = editTaskCard.querySelector(".add-checklist-item");
+    const delItemButton = editTaskCard.querySelector(".item-delete");
+
     addConfirmButtonListener(confirmButton, editTaskCard, task);
     addCancelButtonListener(cancelButton, editTaskCard, task);
+    addChecklistListener(checklistCheckbox, editTaskCard, task);
+    addCreateItemListener(addItemButton, editTaskCard, editTaskCardTemplate);
+    addDeleteItemListener(delItemButton); // only needed for the first item
 
     return editTaskCard;
+}
+
+function addExistingChecklistItems(editTaskCard, task) {
+    const checklist = editTaskCard.querySelectorAll(".checklist-item");
+    for (const item of checklist) {
+        // TBD
+    }
+} 
+
+function addCreateItemListener(addItemButton, editTaskCard, editTaskCardTemplate) {
+    const itemTemplate = editTaskCardTemplate.querySelector(".checklist-item");
+    const checklist = editTaskCard.querySelector(".checklist");
+    addItemButton.addEventListener('click', () => {
+        const newItem = itemTemplate.cloneNode(true);
+        addDeleteItemListener(newItem.querySelector(".item-delete"));
+        checklist.insertBefore(newItem, addItemButton);
+    });
+}
+
+function addDeleteItemListener(delItemButton) {
+    delItemButton.addEventListener('click', () => {
+        delItemButton.parentNode.remove();
+    });
 }
 
 function addDateListeners(dateDisplay, dateInput) {
@@ -65,6 +102,13 @@ function addTimeListeners(timeDisplay, timeInput) {
         const timeObject = parse(timeInput.value, "HH:mm", new Date());
         timeDisplay.textContent = format(timeObject, "H:mm");
     });
+}
+
+function addChecklistListener(checklistCheckbox, currentCard, task) {
+    checklistCheckbox.addEventListener('change', () => {
+        const checklist = currentCard.querySelector(".checklist");
+        checklist.classList.toggle("hidden");
+    })
 }
 
 function addConfirmButtonListener(confirmButton, currentCard, task) {
