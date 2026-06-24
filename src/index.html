@@ -92,5 +92,27 @@
       </div>
     </div>
   </template>
+  <template id="task-card-template">
+    <div class="task priority-low" data-id="">
+      <button class="expand-collapse">-</button>
+      <div class="name"></div>
+      <div class="date-time">
+          <input class="date-input" type="date">
+          <div class="date"></div>
+          <input class="time-input" type="time">
+          <div class="time"></div>
+      </div>
+      <div class="details"></div>
+      <div class="collapsible hidden">
+          <hr>
+          <div class="notes"></div>
+          <div class="edit-buttons">
+              <button class="delete-button">Delete</button>
+              <button class="edit-button">Edit</button>
+              <button class="complete-button">Complete</button>
+          </div>
+      </div>
+    </div>
+  </template>
 </body>
 </html>
