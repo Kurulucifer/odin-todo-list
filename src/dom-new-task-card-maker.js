@@ -43,7 +43,9 @@ function domNewTaskCardMaker(taskFields = {}) {
     time.textContent = format(task.date, "H:mm");
     timeInput.value = format(task.date, "HH:mm");
 
-    if (task.type = "checklist") {
+    if (task.type === "checklist") {
+        const checklist = editTaskCard.querySelector(".checklist");
+        checklist.classList.toggle("hidden"); // toggles off
         checklistCheckbox.value = "1";
         checklistCheckbox.disabled = true; // sorry, no task intercoversion (yet)
         addExistingChecklistItems(editTaskCard, task);
