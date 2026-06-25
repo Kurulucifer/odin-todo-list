@@ -5,28 +5,34 @@ function taskChecklistMaker(taskFields, initItems) {
     const task = taskMaker(taskFields);
     task.updateField( {type: "checklist"} );
 
-    const items = initItems.map(label => ( { label: label, done: false} ));
+    let items = initItems.map(label => ( { label: label, done: false} ));
 
     const getAllItems = () => [...items];
 
-    const toggleItem = (index) => {
-        items[index].done = !items[index].done;
+    const toggleItem = (label) => {
+        const filtered = items.filter( (item) => item.label === label );
+        for (const item of filtered) {
+            item.done = !item.done;
+        }
     };
     
     const addItem = (label) => {
         items.push( {label: label, done: false} );
     };
-    
-    const removeItem = (index) => {
-        items.splice(index, 1);
-    };
+
+    const resetItems = () => {
+        items = [];
+    }
+
+    const getAllFields = () => ( { ...task.getAllFields(), checklist: [...items] } )
 
     return {
         ...task,
         getAllItems,
         toggleItem,
         addItem,
-        removeItem,
+        resetItems,
+        getAllFields,
     }
 }
 

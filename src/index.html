@@ -67,18 +67,18 @@
           <div class="time"></div>
       </div>
       <div class="details" contenteditable="true"></div>
-      <hr>
+      <hr class="border">
       <div class="make-checklist">
         <div>Checklist</div>
         <input class="checklist-checkbox" type="checkbox">
       </div>
-      <div class="checklist hidden">
+      <!-- <div class="checklist hidden">
         <div class="checklist-item">
           <button class="item-delete">X</button>
           <div class="item-content" contenteditable="true">New checklist item</div>
         </div>
         <button class="add-checklist-item">+</button>
-      </div>
+      </div> -->
       <div class="notes" contenteditable="true"></div>
       <div class="priority">
           <label for="priority-select">Priority</label>
@@ -106,14 +106,7 @@
       </div>
       <div class="details"></div>
       <div class="collapsible hidden">
-          <hr>
-          <div class="checklist">
-            <div class="checklist-item">
-              <input class="item-checkbox" type="checkbox" disabled>
-              <div class="item-content" contenteditable="true">New checklist item</div>
-            </div>
-            <button class="add-checklist-item">+</button>
-          </div>
+          <hr class="border">
           <div class="notes"></div>
           <div class="edit-buttons">
               <button class="delete-button">Delete</button>
@@ -122,6 +115,24 @@
           </div>
       </div>
     </div>
+  </template>
+  <template id="checklist-template">
+    <div class="checklist">
+      <div class="checklist-item">
+        <input class="item-checkbox" type="checkbox">
+        <div class="item-content"></div>
+      </div>
+      <button class="add-checklist-item">+</button>
+    </div>
+  </template>
+    <template id="edit-checklist-template">
+      <div class="checklist">
+        <div class="checklist-item">
+          <button class="item-delete">X</button>
+          <div class="item-content" contenteditable="true"></div>
+        </div>
+        <button class="add-checklist-item">+</button>
+      </div>
   </template>
 </body>
 </html>

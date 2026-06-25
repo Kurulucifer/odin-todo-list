@@ -20,26 +20,15 @@ function projectMaker(projectFields = {}) {
         project = {...project, ...fields}
     };
 
-    const addTask = (taskFields = {}) => {
-        const task = taskMaker(taskFields);
+    const addTask = (taskFields = {}, extra = {}) => {
+        let task = taskMaker(taskFields);
+
+        if (extra.checklist.length) {
+            task = taskChecklistMaker(taskFields, extra.checklist);
+        }
+
         taskList.push(task);
     };
-
-    const sortTasks = () => {
-        taskList.sort( () => {
-            const priorities = {
-                low: 1,
-                medium: 2,
-                high: 3,
-            }
-        })
-    }
-
-    // DO THIS LATER!
-    // const addTaskChecklist = (initName, initDate, initDetails, initNotes, initPriority, initItems) => {
-    //     const taskChecklist = taskChecklistMaker(initName, initDate, initDetails, initNotes, initPriority, initItems);
-    //     taskList.push(taskChecklist);
-    // };
 
     const getTaskList = () => taskList;
 
@@ -52,16 +41,29 @@ function projectMaker(projectFields = {}) {
         taskList.splice(taskIndex, 1);
     };
     
+    const sortTasks = () => {
+        taskList.sort( (a, b) => {
+            const priorities = {
+                low: 1,
+                medium: 2,
+                high: 3,
+            }
+            return priorities[b.getField("priority")] - priorities[a.getField("priority")];
+        })
+    };
+    
     return {
         getField,
         getAllFields,
         updateField,
         addTask,
-        // addTaskChecklist,
         getTaskList,
         getTask,
         removeTask,
+        sortTasks,
     };
 }
+
+
 
 export default projectMaker;
