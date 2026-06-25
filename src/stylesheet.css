@@ -35,17 +35,17 @@ body, html {
     gap: 1rem;
 }
 
-.project-name {
+.project > .name {
     font-size: 2rem;
     font-weight: 700;
 }
 
-.project-details {
+.project > .details {
     font-size: 1.4rem;
     font-weight: 400;
 }
 
-.new-task-button > button {
+.new-task-buttons > .add-task-button {
     background-color: rgb(103, 184, 255, 0.5);
     font-size: 1.3rem;
     padding: 0.5rem 1rem;
@@ -53,7 +53,7 @@ body, html {
     border-radius: 1rem;
 }
 
-.new-task-button > button:hover {
+.new-task-buttons > .add-task-button:hover {
     background-color: rgb(103, 184, 255);
     border: none;
     cursor: pointer;

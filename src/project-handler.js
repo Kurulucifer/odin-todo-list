@@ -1,7 +1,7 @@
 import projectMaker from "./project-maker.js";
 
-const projectHandler = () => {
-    const projectList = [];
+const projectHandler = (projectList = []) => {
+    const projectList = [...projectList];
 
     const makeProject = (initName, initDetails, initColor) => {
         const project = projectMaker(initName, initDetails, initColor);

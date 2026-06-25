@@ -1,5 +1,4 @@
 import "./stylesheet.css";
-import domNewTaskCardMaker from "./dom-new-task-card-maker.js";
 import domProjectMaker from "./dom-project-maker.js";
 import projectMaker from "./project-maker.js";
 

@@ -1,38 +1,35 @@
-import domNewTaskCardMaker from "./dom-new-task-card-maker.js";
+import domNewTaskMaker from "./dom-new-task-maker.js";
 import domTaskMaker from "./dom-task-maker.js";
 
-// Move to template eventually
-// Including makeNewTaskButton
 function domProjectMaker(project) {
-    const projectCard = document.createElement("div");
-    projectCard.className = "project";
-    projectCard.dataset.id = project.getField("id");
+    const projectCardTemplate = document.getElementById("project-card-template").content.querySelector(".project");
+    const projectCard = projectCardTemplate.cloneNode(true);
 
-    const defaultFields = ["name", "details"];
+    const name = projectCard.querySelector(".name");
+    const details = projectCard.querySelector(".details");
+    const newTaskButtons = projectCard.querySelector(".new-task-buttons");
+    const addTaskButton = newTaskButtons.querySelector(".add-task-button");
 
-    for (const field of defaultFields) {
-        const element = document.createElement("div");
-        element.className = `project-${field}`;
-        element.textContent = project.getField(field);
-        projectCard.appendChild(element);
-    }
+    name.textContent = project.getField("name");
+    details.textContent = project.getField("details");
 
-    const newTaskButton = makeNewTaskButton();
-    projectCard.appendChild(newTaskButton);
-
-    let taskList = document.createElement("div");
-    taskList.className = "task-list";
-    projectCard.appendChild(taskList);
-    
-    refreshTaskList(projectCard, project);
-
+    attachNewTaskListener(projectCard, addTaskButton);
     attachCardSavedListener(projectCard, project);
     attachDiscardChangesListener(projectCard, project);
     attachDeleteCardListener(projectCard, project);
     attachEditCardListener(projectCard, project);
     attachCompleteCardListener(projectCard, project);
+    
+    refreshTaskList(projectCard, project);
 
     return projectCard;
+}
+
+function attachNewTaskListener(projectCard, taskButton) {
+    taskButton.addEventListener('click', () => {
+        const taskList = projectCard.querySelector(".task-list");
+        taskList.prepend(domNewTaskMaker());
+    });
 }
 
 function attachDiscardChangesListener(projectCard, project) {
@@ -48,27 +45,6 @@ function attachCardSavedListener(projectCard, project) {
     projectCard.addEventListener('card-saved', (e) => saveTask(e.detail.task, projectCard, project));
 }
 
-function saveTask(taskFields, projectCard, project) {
-    const { checklist, ...baseTask } = taskFields;
-
-    if (taskFields.id) {
-        const taskToEdit = project.getTask(baseTask.id);
-        taskToEdit.updateField(baseTask);
-        if (checklist.length > 0) {
-            taskToEdit.resetItems();
-            for (const item of checklist) {
-                taskToEdit.addItem(item);
-            }
-        }
-    }
-    else {
-        project.addTask(baseTask, 
-            { checklist });
-    }
-    
-    refreshTaskList(projectCard, project);
-}
-
 function attachDeleteCardListener(projectCard, project) {
     projectCard.addEventListener('delete-card', (e) => {
         project.removeTask(e.detail.taskID);
@@ -79,7 +55,7 @@ function attachDeleteCardListener(projectCard, project) {
 function attachEditCardListener(projectCard, project) {
     projectCard.addEventListener('edit-card', (e) => {
         const task = e.detail.task;
-        const editCard = domNewTaskCardMaker( { ...task.getAllFields() } );
+        const editCard = domNewTaskMaker( { ...task.getAllFields() } );
         e.target.replaceWith(editCard);
     });
 }
@@ -89,6 +65,30 @@ function attachCompleteCardListener(projectCard, project) {
         project.getTask(e.detail.taskID).toggleDone();
         refreshTaskList(projectCard, project);
     })
+}
+
+function saveTask(taskFields, projectCard, project) {
+    const { checklist, ...baseTask } = taskFields;
+
+    if (taskFields.id) {
+        const taskToEdit = project.getTask(baseTask.id);
+        taskToEdit.updateField(baseTask);
+        // additional checklist stuff
+        if (taskFields.type === "checklist") {
+            // can't really save item completion status
+            // (read: I don't want to)
+            taskToEdit.resetItems();
+            for (const item of checklist) {
+                taskToEdit.addItem(item); 
+            }
+        }
+    }
+    else {
+        project.addTask(baseTask, 
+            { checklist });
+    }
+    
+    refreshTaskList(projectCard, project);
 }
 
 function refreshTaskList(projectCard, project) {
@@ -119,22 +119,5 @@ function refreshTaskList(projectCard, project) {
 
     oldTaskList.replaceWith(taskList);
 }
-
-function makeNewTaskButton() {
-    const taskButton = document.createElement("button");
-    taskButton.textContent = "Add a task";
-    const taskButtonDiv = document.createElement("div");
-    taskButtonDiv.className = "new-task-button";
-    taskButtonDiv.appendChild(taskButton);
-
-    taskButton.addEventListener('click', () => {
-        const taskList = taskButtonDiv.parentNode.querySelector(".task-list");
-        taskList.prepend(domNewTaskCardMaker());
-    });
-
-    return taskButtonDiv;
-}
-
-
 
 export default domProjectMaker;

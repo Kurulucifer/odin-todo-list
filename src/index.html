@@ -7,54 +7,7 @@
 </head>
 <body>
   <div class="projects" id="projects">
-    <div class="project" id="default">
-      <div class="project-name">
-        Default
-      </div>
-      <div class="project-details">
-        This is the default project.
-      </div>
-      <div class="new-task-button">
-        <button>Add a task</button>
-      </div>
-      <div class="task-list" id="1">
-        <div class="edit-task">
-          <div class="name" contenteditable="true">New task</div>
-          <div class="date-time">
-              <input class="date-input" type="date">
-              <div class="date">2/22</div>
-              <input class="time-input" type="time">
-              <div class="time">2:22</div>
-          </div>
-          <div class="details" contenteditable="true">Some details</div>
-          <hr>
-          <div class="make-checklist">
-            <div>Checklist</div>
-            <input class="checklist-checkbox" type="checkbox">
-          </div>
-          <div class="checklist">
-            <div class="checklist-item">
-              <button class="item-delete">X</button>
-              <div class="item-content" contenteditable="true">New checklist item</div>
-            </div>
-            <button class="add-checklist-item">+</button>
-          </div>
-          <div class="notes" contenteditable="true">Some notes</div>
-          <div class="priority">
-              <label for="priority-select">Priority</label>
-              <select name="priority" id="priority-select">
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-              </select>
-          </div>
-          <div class="finish-buttons">
-              <button class="confirm-button">Confirm</button>
-              <button class="cancel-button">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
   <!-- Templates -->
   <template id="edit-task-card-template">
@@ -106,6 +59,17 @@
               <button class="edit-button">Edit</button>
               <button class="complete-button">Complete</button>
           </div>
+      </div>
+    </div>
+  </template>
+  <template id="project-card-template">
+    <div class="project">
+      <div class="name"></div>
+      <div class="details"></div>
+      <div class="new-task-buttons">
+        <button class="add-task-button">Add a task</button>
+      </div>
+      <div class="task-list">
       </div>
     </div>
   </template>

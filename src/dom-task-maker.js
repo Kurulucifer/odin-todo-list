@@ -6,13 +6,10 @@ function domTaskMaker(task) {
 
     const taskCardClasses = taskCard.classList;
     taskCardClasses.add(`priority-${task.getField("priority")}`);
-    taskCard.dataset.id = task.getField("id");
 
     if (task.getField("done")) {
-        taskCardClasses.add("done");
+        taskCardClasses.toggle("done");
     }
-
-    // filling in
 
     const name = taskCard.querySelector(".name");
     const details = taskCard.querySelector(".details");
@@ -44,6 +41,8 @@ function domTaskMaker(task) {
     return taskCard;
 }
 
+// Should this return instead?
+// Maybe attach it in the main function
 function makeChecklistItems(taskCard, task) {
     const checklistTemplate = document.getElementById("checklist-template").content.querySelector(".checklist");
     const checklist = checklistTemplate.cloneNode(true);
@@ -86,7 +85,6 @@ function attachToggleItemListener(taskCard, task) {
         e.target.classList.toggle("done");
     })
 }
-
 function attachItemCheckboxListeners(taskCard) {
     const checklist = taskCard.querySelector(".checklist").querySelectorAll(".checklist-item");
     for (const item of checklist) {

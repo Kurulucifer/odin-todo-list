@@ -1,14 +1,17 @@
 import taskMaker from './task-maker.js';
 
-// initItems is an array of strings (labels)
-function taskChecklistMaker(taskFields, initItems) {
-    const task = taskMaker(taskFields);
+function taskChecklistMaker(initTaskFields, initItems) {
+    const task = taskMaker(initTaskFields);
     task.updateField( {type: "checklist"} );
 
     let items = initItems.map(label => ( { label: label, done: false} ));
 
     const getAllItems = () => [...items];
 
+    // it really doesn't matter if there's multiple
+    // tasks with the same label...
+    // could give them unique IDs but that's 
+    // another mess waiting to happen...
     const toggleItem = (label) => {
         const filtered = items.filter( (item) => item.label === label );
         for (const item of filtered) {
