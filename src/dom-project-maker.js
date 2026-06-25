@@ -7,17 +7,24 @@ function domProjectMaker(project) {
 
     const name = projectCard.querySelector(".name");
     const details = projectCard.querySelector(".details");
-    const newTaskButtons = projectCard.querySelector(".new-task-buttons");
-    const addTaskButton = newTaskButtons.querySelector(".add-task-button");
+    const editProjectButtons = projectCard.querySelector(".edit-project-buttons");
+    const addTaskButton = editProjectButtons.querySelector(".add-task-button");
+    const editProjectButton = editProjectButtons.querySelector(".edit-project-button");
+    const saveProjectButton = editProjectButtons.querySelector(".save-project-button");
+    const deleteProjectButton = editProjectButtons.querySelector(".delete-project-button");
 
     name.textContent = project.getField("name");
     details.textContent = project.getField("details");
 
+    // this is getting ridiculous
+    attachEditProjectListener(editProjectButton, projectCard, project);
+    attachSaveProjectListener(saveProjectButton, projectCard, project);
+    attachDeleteProjectListener(deleteProjectButton, projectCard, project);
     attachNewTaskListener(projectCard, addTaskButton);
     attachCardSavedListener(projectCard, project);
     attachDiscardChangesListener(projectCard, project);
-    attachDeleteCardListener(projectCard, project);
     attachEditCardListener(projectCard, project);
+    attachDeleteCardListener(projectCard, project);
     attachCompleteCardListener(projectCard, project);
     
     refreshTaskList(projectCard, project);
@@ -25,11 +32,47 @@ function domProjectMaker(project) {
     return projectCard;
 }
 
-function attachNewTaskListener(projectCard, taskButton) {
-    taskButton.addEventListener('click', () => {
+function attachNewTaskListener(projectCard, addTaskButton) {
+    addTaskButton.addEventListener('click', () => {
         const taskList = projectCard.querySelector(".task-list");
         taskList.prepend(domNewTaskMaker());
     });
+}
+
+function attachEditProjectListener(editProjectButton, projectCard, project) {
+    const editProject = new CustomEvent('edit-project', {
+        bubbles: true,
+        detail: {
+            projectID: project.getField("id"),
+        }
+    });
+    editProjectButton.addEventListener('click', () => {
+        projectCard.dispatchEvent(editProject);
+    })
+}
+
+function attachSaveProjectListener(saveProjectButton, projectCard, project) {
+    const saveProject = new CustomEvent('save-project', {
+        bubbles: true,
+        detail: {
+            projectID: project.getField("id"),
+        }
+    });
+    saveProjectButton.addEventListener('click', () => {
+        projectCard.dispatchEvent(saveProject);
+    })
+}
+
+function attachDeleteProjectListener(deleteProjectButton, projectCard, project) {
+    const deleteProject = new CustomEvent('delete-project', {
+        bubbles: true,
+        detail: {
+            projectID: project.getField("id"),
+        },
+    });
+    deleteProjectButton.addEventListener('click', () => {
+        projectCard.dispatchEvent(deleteProject);
+    })
 }
 
 function attachDiscardChangesListener(projectCard, project) {
@@ -42,7 +85,10 @@ function attachDiscardChangesListener(projectCard, project) {
 }
 
 function attachCardSavedListener(projectCard, project) {
-    projectCard.addEventListener('card-saved', (e) => saveTask(e.detail.task, projectCard, project));
+    projectCard.addEventListener('card-saved', (e) => {
+        saveTask(e.detail.task, projectCard, project);
+        refreshTaskList(projectCard, project);
+    });
 }
 
 function attachDeleteCardListener(projectCard, project) {
@@ -87,8 +133,6 @@ function saveTask(taskFields, projectCard, project) {
         project.addTask(baseTask, 
             { checklist });
     }
-    
-    refreshTaskList(projectCard, project);
 }
 
 function refreshTaskList(projectCard, project) {
@@ -117,6 +161,8 @@ function refreshTaskList(projectCard, project) {
         taskList.appendChild(task);
     }
 
+    // if I ever add listeners to taskList (unlikely since project handles)
+    // this deletes them!
     oldTaskList.replaceWith(taskList);
 }
 

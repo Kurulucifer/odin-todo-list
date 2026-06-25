@@ -2,10 +2,10 @@
 // not sure what the priority levels should be yet
 function taskMaker(taskFields = {}) {
     let task = {
-        name: "New Task",
+        name: "Task",
         date: new Date(),
         details: "Details",
-        notes: "Notes", 
+        notes: "Notes",
         priority: "low",
         done: false,
         type: "task",

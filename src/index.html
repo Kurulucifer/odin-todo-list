@@ -6,10 +6,52 @@
   <title>Document</title>
 </head>
 <body>
-  <div class="projects" id="projects">
+  <div class="todo-list">
+    <div class="projects" id="projects">
+      <div class="add-project">
+        <button class="add-project-button">+</button>
+      </div>
+    </div>
+  </div>
 
   </div>
   <!-- Templates -->
+  <template id="project-card-template">
+    <div class="project">
+      <div class="name"></div>
+      <div class="details"></div>
+      <div class="edit-project-buttons">
+        <button class="add-task-button">Add a task</button>
+        <button class="edit-project-button">Edit</button>
+        <button class="save-project-button hidden">Save</button>
+        <button class="delete-project-button hidden">Delete</button>
+      </div>
+      <div class="task-list">
+      </div>
+    </div>
+  </template>
+  <template id="task-card-template">
+    <div class="task priority-low" data-id="">
+      <button class="expand-collapse">-</button>
+      <div class="name"></div>
+      <div class="date-time">
+          <input class="date-input" type="date">
+          <div class="date"></div>
+          <input class="time-input" type="time">
+          <div class="time"></div>
+      </div>
+      <div class="details"></div>
+      <div class="collapsible hidden">
+          <hr class="border">
+          <div class="notes"></div>
+          <div class="edit-buttons">
+              <button class="delete-button">Delete</button>
+              <button class="edit-button">Edit</button>
+              <button class="complete-button">Complete</button>
+          </div>
+      </div>
+    </div>
+  </template>
   <template id="edit-task-card-template">
     <div class="edit-task">
       <div class="name" contenteditable="true"></div>
@@ -37,39 +79,6 @@
       <div class="finish-buttons">
           <button class="confirm-button">Confirm</button>
           <button class="cancel-button">Cancel</button>
-      </div>
-    </div>
-  </template>
-  <template id="task-card-template">
-    <div class="task priority-low" data-id="">
-      <button class="expand-collapse">-</button>
-      <div class="name"></div>
-      <div class="date-time">
-          <input class="date-input" type="date">
-          <div class="date"></div>
-          <input class="time-input" type="time">
-          <div class="time"></div>
-      </div>
-      <div class="details"></div>
-      <div class="collapsible hidden">
-          <hr class="border">
-          <div class="notes"></div>
-          <div class="edit-buttons">
-              <button class="delete-button">Delete</button>
-              <button class="edit-button">Edit</button>
-              <button class="complete-button">Complete</button>
-          </div>
-      </div>
-    </div>
-  </template>
-  <template id="project-card-template">
-    <div class="project">
-      <div class="name"></div>
-      <div class="details"></div>
-      <div class="new-task-buttons">
-        <button class="add-task-button">Add a task</button>
-      </div>
-      <div class="task-list">
       </div>
     </div>
   </template>

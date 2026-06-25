@@ -171,7 +171,7 @@ function attachCancelButtonListener(cancelButton, currentCard, task) {
 
 function updateTaskFields(currentCard, task) {
     // Add defaults again in case they were erased
-    const nameField = currentCard.querySelector(".name").textContent.trim() || "New Task";
+    const nameField = currentCard.querySelector(".name").textContent.trim() || "Task";
     const detailsField = currentCard.querySelector(".details").textContent.trim() || "Details";
     const notesField = currentCard.querySelector(".notes").innerText.trim() || "Notes"; // support line breaks
     const priorityField = currentCard.querySelector("select[name='priority']").value;
@@ -193,7 +193,7 @@ function updateTaskFields(currentCard, task) {
     if (checklist) {
         const checklistItems = checklist.querySelectorAll(".checklist-item");
         for (const item of checklistItems) {
-            const label = item.querySelector(".item-content").textContent.trim() || "New checklist item";
+            const label = item.querySelector(".item-content").textContent.trim() || "Checklist item";
             checklistField.push(label);
         }
     }

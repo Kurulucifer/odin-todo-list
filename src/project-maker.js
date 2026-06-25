@@ -5,7 +5,7 @@ function projectMaker(projectFields = {}) {
     let project = {
         id: crypto.randomUUID(),
         name: "New Project",
-        details: "Details",
+        details: "This is a new project.",
         color: "blue",
         ...projectFields,
     }

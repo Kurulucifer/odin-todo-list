@@ -1,10 +1,10 @@
 import projectMaker from "./project-maker.js";
 
-const projectHandler = (projectList = []) => {
-    const projectList = [...projectList];
+function projectsHandler(existingProjectList = []) {
+    const projectList = [...existingProjectList];
 
-    const makeProject = (initName, initDetails, initColor) => {
-        const project = projectMaker(initName, initDetails, initColor);
+    const makeProject = (projectFields = {}) => {
+        const project = projectMaker(projectFields);
         projectList.push(project);
     };
 
@@ -24,7 +24,7 @@ const projectHandler = (projectList = []) => {
         getProject,
         removeProject,
         getProjectList,
-    }
-};
+    };
+}
 
-export default projectHandler;
+export default projectsHandler;

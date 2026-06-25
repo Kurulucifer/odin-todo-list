@@ -5,6 +5,10 @@ body, html {
     box-sizing: border-box;
 }
 
+.hidden {
+    display: none;
+}
+
 #form-task, #add-task[open] {
     display: flex;
     flex-direction: column;
@@ -16,6 +20,15 @@ body, html {
     flex-direction: column;
 }
 
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: solid 2px orange;
+    border-radius: 1rem;
+    gap: 2rem;
+}
+
 .projects {
     display: flex;
     flex-direction: column;
@@ -24,6 +37,19 @@ body, html {
     border: solid 2px blue;
     border-radius: 1rem;
     gap: 2rem;
+}
+
+.add-project > .add-project-button {
+    background-color: rgb(128, 255, 128, 0.5);
+    width: 100%;
+    padding: 2rem;
+    font-size: 5rem;
+    border: none;
+    border-radius: 3rem;
+}
+
+.add-project > .add-project-button:hover {
+    background-color: rgb(128, 255, 128);
 }
 
 .project {
@@ -45,18 +71,51 @@ body, html {
     font-weight: 400;
 }
 
-.new-task-buttons > .add-task-button {
-    background-color: rgb(103, 184, 255, 0.5);
+.edit-project-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.edit-project-buttons > * {
     font-size: 1.3rem;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 1rem;
 }
 
-.new-task-buttons > .add-task-button:hover {
-    background-color: rgb(103, 184, 255);
+.edit-project-buttons > *:hover {
     border: none;
     cursor: pointer;
+}
+
+
+.edit-project-buttons > .add-task-button{
+    background-color: rgb(103, 184, 255, 0.5);
+}
+
+.edit-project-buttons > .add-task-button:hover {
+    background-color: rgb(103, 184, 255);
+}
+
+.edit-project-buttons > .edit-project-button{
+    background-color: rgba(255, 207, 103, 0.5);
+}
+
+.edit-project-buttons > .edit-project-button:hover {
+    background-color: rgb(255, 207, 103);
+}
+
+.edit-project-buttons > .edit-project-button:disabled,
+.edit-project-buttons > .edit-project-button:hover:disabled {
+    background-color: rgb(201, 201, 201);
+}
+
+.edit-project-buttons > .delete-project-button{
+    background-color: rgba(255, 111, 111, 0.5);
+}
+
+.edit-project-buttons > .delete-project-button:hover {
+    background-color: rgb(255, 111, 111);
 }
 
 .task-list {
@@ -183,7 +242,9 @@ body, html {
     display: none;
 }
 
-
+/* I need to do something different lmao */
+.project > .name,
+.project > .details,
 .edit-task > *:not(hr, button),
 .edit-task > .date-time > *,
 .task > *:not(hr, button),
@@ -192,7 +253,7 @@ body, html {
     border: solid 1px transparent;
 }
 
-/* New Task Card*/
+/* Edit Task Card (and project too) */
 
 .edit-task .hidden {
     display: none;
@@ -208,10 +269,14 @@ body, html {
     width: 50%;
 }
 
-.edit-task > *:not(hr, button, .date-time, .finish-buttons):hover,
-.edit-task > .date-time > *:hover {
+[contenteditable]:hover {
     border: solid 1px black;
 }
+
+/* .edit-task > *:not(hr, button, .date-time, .finish-buttons):hover,
+.edit-task > .date-time > *:hover {
+    border: solid 1px black;
+} */
 
 .edit-task *:empty::before {
     cursor: text;
