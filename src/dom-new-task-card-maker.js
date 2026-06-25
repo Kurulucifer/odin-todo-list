@@ -19,11 +19,11 @@ function domNewTaskCardMaker(taskFields = {}) {
 
     const date = editTaskCard.querySelector(".date");
     const dateInput = editTaskCard.querySelector(".date-input");
-    addDateListeners(date, dateInput);
+    attachDateListeners(date, dateInput);
 
     const time = editTaskCard.querySelector(".time");
     const timeInput = editTaskCard.querySelector(".time-input");
-    addTimeListeners(time, timeInput);
+    attachTimeListeners(time, timeInput);
     
     // pre-filling
 
@@ -57,7 +57,7 @@ function domNewTaskCardMaker(taskFields = {}) {
         makeChecklist.remove();
     }
     else {
-        addChecklistListener(makeChecklist, editTaskCard);
+        attachChecklistListener(makeChecklist, editTaskCard);
     }
     
     // button event listeners
@@ -65,13 +65,13 @@ function domNewTaskCardMaker(taskFields = {}) {
     const confirmButton = editTaskCard.querySelector(".confirm-button");
     const cancelButton = editTaskCard.querySelector(".cancel-button");
 
-    addConfirmButtonListener(confirmButton, editTaskCard, task);
-    addCancelButtonListener(cancelButton, editTaskCard, task);
+    attachConfirmButtonListener(confirmButton, editTaskCard, task);
+    attachCancelButtonListener(cancelButton, editTaskCard, task);
 
     return editTaskCard;
 }
 
-function addChecklistListener(makeChecklist, editTaskCard) {
+function attachChecklistListener(makeChecklist, editTaskCard) {
     const checkbox = makeChecklist.querySelector(".checklist-checkbox");
     checkbox.addEventListener('change', () => {
         const checklist = editTaskCard.querySelector(".checklist");
@@ -91,7 +91,7 @@ function fillExistingChecklist(checklist, itemTemplate, task) {
         const newItem = itemTemplate.cloneNode(true);
         const deleteButton = newItem.querySelector(".item-delete");
         const newItemLabel = newItem.querySelector(".item-content");
-        addDeleteItemListener(deleteButton)
+        attachDeleteItemListener(deleteButton)
         newItemLabel.textContent = item.label;
         checklist.insertBefore(newItem, addItemButton);
     }
@@ -107,30 +107,30 @@ function makeNewChecklist() {
 
     const addItemButton = checklist.querySelector(".add-checklist-item");
 
-    addCreateItemListener(addItemButton, checklist, itemTemplateBlank);
+    attachCreateItemListener(addItemButton, checklist, itemTemplateBlank);
 
     return { checklist, itemTemplateBlank };
 }
 
-function addCreateItemListener(addItemButton, checklist, itemTemplateBlank) {
+function attachCreateItemListener(addItemButton, checklist, itemTemplateBlank) {
     const itemTemplate = itemTemplateBlank.cloneNode(true);
     const itemTemplateLabel = itemTemplate.querySelector(".item-content");
     itemTemplateLabel.textContent = "New checklist item";
 
     addItemButton.addEventListener('click', () => {
         const newItem = itemTemplate.cloneNode(true);
-        addDeleteItemListener(newItem.querySelector(".item-delete"));
+        attachDeleteItemListener(newItem.querySelector(".item-delete"));
         checklist.insertBefore(newItem, addItemButton);
     });
 }
 
-function addDeleteItemListener(delItemButton) {
+function attachDeleteItemListener(delItemButton) {
     delItemButton.addEventListener('click', () => {
         delItemButton.parentNode.remove();
     });
 }
 
-function addDateListeners(dateDisplay, dateInput) {
+function attachDateListeners(dateDisplay, dateInput) {
     dateDisplay.addEventListener('click', () => dateInput.showPicker());
     dateInput.addEventListener('change', () => {
         const dateObject = parse(dateInput.value, "yyyy-MM-dd", new Date());
@@ -138,7 +138,7 @@ function addDateListeners(dateDisplay, dateInput) {
     });
 }
 
-function addTimeListeners(timeDisplay, timeInput) {
+function attachTimeListeners(timeDisplay, timeInput) {
     timeDisplay.addEventListener('click', () => timeInput.showPicker());
     timeInput.addEventListener('change', () => {
         const timeObject = parse(timeInput.value, "HH:mm", new Date());
@@ -146,7 +146,7 @@ function addTimeListeners(timeDisplay, timeInput) {
     });
 }
 
-function addConfirmButtonListener(confirmButton, currentCard, task) {
+function attachConfirmButtonListener(confirmButton, currentCard, task) {
     confirmButton.addEventListener('click', () => {
         const updatedTask = updateTaskFields(currentCard, task);
         const cardSaved = new CustomEvent("card-saved", {
@@ -160,7 +160,7 @@ function addConfirmButtonListener(confirmButton, currentCard, task) {
     })
 }
 
-function addCancelButtonListener(cancelButton, currentCard, task) {
+function attachCancelButtonListener(cancelButton, currentCard, task) {
     const discardChanges = new CustomEvent("discard-changes", {
         bubbles: true,
         detail: {

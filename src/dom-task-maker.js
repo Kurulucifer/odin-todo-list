@@ -74,6 +74,11 @@ function makeChecklistItems(taskCard, task) {
     border.after(checklist);
 }
 
+// Now that I'm thinking about it, it's kinda weird to 
+// use a CustomEvent dispatcher and listening on the same
+// exact card for this... I guess it makes more sense 
+// semantically but I could do away with it.
+// It could literally just go into the checkbox.addEventListener
 function attachToggleItemListener(taskCard, task) {
     const checklist = taskCard.querySelector(".checklist");
     checklist.addEventListener('toggle-item', (e) => {

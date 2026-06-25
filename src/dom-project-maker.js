@@ -1,6 +1,8 @@
 import domNewTaskCardMaker from "./dom-new-task-card-maker.js";
 import domTaskMaker from "./dom-task-maker.js";
 
+// Move to template eventually
+// Including makeNewTaskButton
 function domProjectMaker(project) {
     const projectCard = document.createElement("div");
     projectCard.className = "project";
