@@ -43,16 +43,48 @@ body, html {
 }
 
 .add-project > .add-project-button {
-    background-color: rgb(128, 255, 128, 0.5);
+    background-color: #fbeed9;
     width: 100%;
     padding: 2rem;
     font-size: 5rem;
-    border: solid 2px grey;
+    border: solid 2px #C7A990;
     border-radius: 3rem;
+    cursor: pointer;
 }
 
 .add-project > .add-project-button:hover {
-    background-color: rgb(128, 255, 128);
+    background-color: #fde9c9;
+} 
+
+.task-list .add-checklist-item {
+    background-color: #fde9c9;
+    font-weight: 700;
+    margin-top: 0.4rem;
+    width: 100%;
+    border: solid 2px #C7A990;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.task-list .add-checklist-item:hover {
+    background-color: #fad9a5;
+}
+
+.checklist-item .item-checkbox {
+    margin-top: 7px;
+}
+
+.checklist-item .item-delete {
+    background-color: rgba(255, 111, 111, 0.5);
+    color: black;
+    font-weight: 700;
+    border: solid 1px #C7A990;
+    border-radius: 10rem;
+    margin-top: 5px;
+}
+
+.checklist-item .item-delete:hover {
+    background-color: rgb(255, 111, 111);
 }
 
 .project {
@@ -84,7 +116,7 @@ body, html {
     font-weight: 600;
     font-size: 1.3rem;
     padding: 0.5rem 1rem;
-    border: solid 2px grey;
+    border: solid 2px #C7A990;
     border-radius: 1rem;
 }
 
@@ -134,7 +166,7 @@ body, html {
 .task-list .edit-buttons > * {
     font-weight: 700;
     padding: 0.3rem 0.6rem;
-    border: solid 1px gray;
+    border: solid 1px #C7A990;
     border-radius: 0.5rem;
     cursor: pointer;
 }
@@ -190,7 +222,7 @@ body, html {
 
 .task-list > * {
     padding: 1rem;
-    border: solid 2px;
+    border: solid 2px #8d6646;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -291,20 +323,6 @@ body, html {
     padding: 0.2rem;
 }
 
-.checklist-item .item-checkbox {
-    margin-top: 0.4rem;
-}
-
-.checklist-item .item-delete {
-    border-radius: 1rem;
-    margin-top: 0.2rem;
-}
-
-.task-list .add-checklist-item {
-    margin-top: 0.4rem;
-    width: 100%;
-}
-
 .task .collapsible {
     display: flex;
     flex-direction: column;
@@ -320,10 +338,16 @@ body, html {
 .project > .details,
 .edit-task > *:not(hr, button),
 .edit-task > .date-time > *,
+.edit-task .item-content,
 .task > *:not(hr, button),
 .task > .date-time > * {
     padding: 0.2rem;
     border: solid 2px transparent;
+}
+
+.edit-task > .date-time > *:hover {
+    border: solid 2px #C7A990;
+    border-radius: 0.3rem;
 }
 
 /* Edit Task Card (and project too) */
@@ -343,14 +367,9 @@ body, html {
 }
 
 [contenteditable]:hover {
-    border: solid 2px black;
+    border: solid 2px #C7A990;
     border-radius: 0.3rem;
 }
-
-/* .edit-task > *:not(hr, button, .date-time, .finish-buttons):hover,
-.edit-task > .date-time > *:hover {
-    border: solid 1px black;
-} */
 
 .edit-task *:empty::before {
     cursor: text;
@@ -392,7 +411,7 @@ input[type="time"] {
 .priority-medium.done,
 .priority-high.done,
 .edit-task {
-    border-top: solid 12px black;
+    border-top: solid 12px #8d6646;
 }
 
 
