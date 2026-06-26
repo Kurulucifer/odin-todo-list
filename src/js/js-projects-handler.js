@@ -19,11 +19,17 @@ function projectsHandler(existingProjectList = []) {
 
     const getProjectList = () => [...projectList];
 
+    const saveObject = () => {
+        console.log(projectList.map(project => project.saveObject()));
+        return projectList.map(project => project.saveObject());
+    }
+
     return {
         makeProject,
         getProject,
         removeProject,
         getProjectList,
+        saveObject,
     };
 }
 

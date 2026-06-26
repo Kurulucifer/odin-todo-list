@@ -51,9 +51,13 @@ function projectMaker(projectFields = {}) {
                 medium: 2,
                 high: 3,
             }
-            return priorities[b.getField("priority")] - priorities[a.getField("priority")];
+            return (priorities[b.getField("priority")] * !b.getField("done") - priorities[a.getField("priority")] * !a.getField("done"));
         })
     };
+
+    const saveObject = () => {
+        return { ...getAllFields(), taskList: taskList.map(task => task.saveObject()) };
+    }
     
     return {
         getField,
@@ -64,6 +68,7 @@ function projectMaker(projectFields = {}) {
         getTask,
         removeTask,
         sortTasks,
+        saveObject,
     };
 }
 

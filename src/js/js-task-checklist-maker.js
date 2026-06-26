@@ -36,6 +36,10 @@ function taskChecklistMaker(initTaskFields, initChecklist) {
 
     const getAllFields = () => ( { ...task.getAllFields(), checklist: [...items] } )
 
+    const saveObject = () => {
+        return { ...task.saveObject(), checklist: { load: true, content: [...items] } };
+    }
+
     return {
         ...task,
         getAllItems,
@@ -43,6 +47,7 @@ function taskChecklistMaker(initTaskFields, initChecklist) {
         addItem,
         resetItems,
         getAllFields,
+        saveObject,
     }
 }
 

@@ -13,7 +13,8 @@ function main() {
     domProjectsHandler(projects);
 
     todo.addEventListener("update-storage", () => {
-        const updatedProjectsList = projects.getProjectList();
+        // const updatedProjectsList = projects.getProjectList();
+        const updatedProjectsList = projects;
         storageHandler.saveProjects(updatedProjectsList);
     });
 }
