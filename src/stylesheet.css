@@ -3,6 +3,7 @@ body, html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     box-sizing: border-box;
+    background-color: #d7a86a;
 }
 
 .hidden {
@@ -21,20 +22,22 @@ body, html {
 }
 
 .todo-list {
+    background-color: #f0cf9e;
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border: solid 2px orange;
+    border: none;
     border-radius: 1rem;
     gap: 2rem;
 }
 
 .projects {
+    background-color: #ffe2b3;
     display: flex;
     flex-direction: column;
     align-items: left;
     padding: 1rem;
-    border: solid 2px blue;
+    border: none;
     border-radius: 1rem;
     gap: 2rem;
 }
@@ -44,7 +47,7 @@ body, html {
     width: 100%;
     padding: 2rem;
     font-size: 5rem;
-    border: none;
+    border: solid 2px grey;
     border-radius: 3rem;
 }
 
@@ -53,10 +56,11 @@ body, html {
 }
 
 .project {
+    background: #fbeed9;
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border: solid 2px red;
+    border: solid 2px #C7A990;
     border-radius: 1rem;
     gap: 1rem;
 }
@@ -77,17 +81,16 @@ body, html {
 }
 
 .edit-project-buttons > * {
+    font-weight: 600;
     font-size: 1.3rem;
     padding: 0.5rem 1rem;
-    border: none;
+    border: solid 2px grey;
     border-radius: 1rem;
 }
 
 .edit-project-buttons > *:hover {
-    border: none;
     cursor: pointer;
 }
-
 
 .edit-project-buttons > .add-task-button{
     background-color: rgb(103, 184, 255, 0.5);
@@ -107,16 +110,75 @@ body, html {
 
 .edit-project-buttons > .edit-project-button:disabled,
 .edit-project-buttons > .edit-project-button:hover:disabled {
+    border: none;
     background-color: rgb(201, 201, 201);
 }
 
-.edit-project-buttons > .delete-project-button{
+.edit-project-buttons > .save-project-button{
+    background-color: rgba(152, 255, 126, 0.5);
+}
+
+.edit-project-buttons > .save-project-button:hover {
+    background-color: rgb(152, 255, 126);
+}
+
+.edit-project-buttons > .delete-project-button {
     background-color: rgba(255, 111, 111, 0.5);
 }
 
 .edit-project-buttons > .delete-project-button:hover {
     background-color: rgb(255, 111, 111);
 }
+
+.task-list .finish-buttons > *,
+.task-list .edit-buttons > * {
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border: solid 1px gray;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.task-list .edit-buttons > .delete-button {
+    background-color: rgb(255, 111, 111, 0.5);
+}
+
+.task-list .edit-buttons > .delete-button:hover {
+    background-color: rgb(255, 111, 111);
+}
+
+.task-list .edit-buttons > .edit-button {
+    background-color: rgb(255, 207, 103, 0.5);
+}
+
+.task-list .edit-buttons > .edit-button:hover {
+    background-color: rgb(255, 207, 103);
+}
+
+.task-list .edit-buttons > .complete-button {
+    background-color: rgba(152, 255, 126, 0.5);
+}
+
+.task-list .edit-buttons > .complete-button:hover {
+    background-color: rgba(152, 255, 126);
+}
+
+.task-list .finish-buttons > .confirm-button {
+    background-color: rgba(152, 255, 126, 0.5);
+}
+
+.task-list .finish-buttons > .confirm-button:hover {
+    background-color: rgba(152, 255, 126);
+}
+
+.task-list .finish-buttons > .cancel-button {
+    background-color: rgba(255, 111, 111, 0.5);
+}
+
+.task-list .finish-buttons > .cancel-button:hover {
+    background-color: rgba(255, 111, 111);
+}
+
 
 .task-list {
     display: grid;
@@ -138,6 +200,26 @@ body, html {
 
 .task-list .task {
     position: relative;
+}
+
+.task .expand-collapse {
+    position: absolute;
+    top: -12px;
+    left: -1px;
+    width: 101%;
+    font-weight: 700;
+    padding-top: 0.8rem;
+    background-color: rgba(128, 128, 128, 0.05);
+    border: none;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.task .expand-collapse:hover {
+    background-color: rgba(128, 128, 128, 0.2);
 }
 
 .task-list .name {
@@ -190,7 +272,6 @@ body, html {
     margin-top: auto;
 }
 
-
 .task-list .checklist {
     display: flex;
     flex-direction: column;
@@ -224,14 +305,6 @@ body, html {
     width: 100%;
 }
 
-.task .expand-collapse {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    font-weight: 700;
-    border-radius: 1rem;
-}
-
 .task .collapsible {
     display: flex;
     flex-direction: column;
@@ -250,7 +323,7 @@ body, html {
 .task > *:not(hr, button),
 .task > .date-time > * {
     padding: 0.2rem;
-    border: solid 1px transparent;
+    border: solid 2px transparent;
 }
 
 /* Edit Task Card (and project too) */
@@ -270,7 +343,8 @@ body, html {
 }
 
 [contenteditable]:hover {
-    border: solid 1px black;
+    border: solid 2px black;
+    border-radius: 0.3rem;
 }
 
 /* .edit-task > *:not(hr, button, .date-time, .finish-buttons):hover,
@@ -303,22 +377,22 @@ input[type="time"] {
 /* Priority */
 
 .priority-low {
-    border-top: solid 8px green;
+    border-top: solid 12px hsl(120, 78%, 73%);
 }
 
 .priority-medium {
-    border-top: solid 8px orange;
+    border-top: solid 12px hsl(39, 100%, 75%);
 }
 
 .priority-high {
-    border-top: solid 8px red;
+    border-top: solid 12px hsl(0, 100%, 75%);
 }
 
 .priority-low.done,
 .priority-medium.done,
 .priority-high.done,
 .edit-task {
-    border-top: solid 8px black;
+    border-top: solid 12px black;
 }
 
 
