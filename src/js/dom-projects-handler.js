@@ -1,11 +1,7 @@
-import projectsHandler from "./projects-handler.js";
 import domProjectMaker from "./dom-project-maker.js";
 
-const domProjectsHandler = () => {
+const domProjectsHandler = (projects) => {
     const projectsCard = document.getElementById("projects");
-    const projects = projectsHandler();
-
-    console.log(projects.getProjectList());
 
     if (projects.getProjectList().length === 0) {
         projects.makeProject();
@@ -90,6 +86,11 @@ function refreshProjectList(projectsCard, projects) {
         const domProject = domProjectMaker(project);
         projectsCard.insertBefore(domProject, addProjectButton);
     }
+
+    const updateStorage = new CustomEvent('update-storage', {
+        bubbles: true,
+    });
+    projectsCard.dispatchEvent(updateStorage);
 }
 
 export default domProjectsHandler;

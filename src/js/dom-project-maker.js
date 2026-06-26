@@ -115,6 +115,13 @@ function attachCompleteCardListener(projectCard, project) {
 
 function saveTask(taskFields, projectCard, project) {
     const { checklist, ...baseTask } = taskFields;
+    const extra = {};
+
+    // if a checklist exists (not set false in the new-task-maker),
+    // then actually fill it out
+    if (checklist) {
+        extra.checklist = { load: false, content: checklist };
+    }
 
     if (taskFields.id) {
         const taskToEdit = project.getTask(baseTask.id);
@@ -130,8 +137,7 @@ function saveTask(taskFields, projectCard, project) {
         }
     }
     else {
-        project.addTask(baseTask, 
-            { checklist });
+        project.addTask(baseTask, extra);
     }
 }
 
@@ -161,8 +167,15 @@ function refreshTaskList(projectCard, project) {
         taskList.appendChild(task);
     }
 
-    // if I ever add listeners to taskList (unlikely since project handles)
+    // if I ever add listeners to taskList 
+    // (unlikely since project handles everything)
     // this deletes them!
+
+    const updateStorage = new CustomEvent('update-storage', {
+        bubbles: true,
+    });
+    projectCard.dispatchEvent(updateStorage);
+
     oldTaskList.replaceWith(taskList);
 }
 

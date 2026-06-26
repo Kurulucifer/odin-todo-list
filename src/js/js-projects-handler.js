@@ -1,4 +1,4 @@
-import projectMaker from "./project-maker.js";
+import projectMaker from "./js-project-maker.js";
 
 function projectsHandler(existingProjectList = []) {
     const projectList = [...existingProjectList];

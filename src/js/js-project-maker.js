@@ -1,5 +1,5 @@
-import taskMaker from "./task-maker.js";
-import taskChecklistMaker from "./task-checklist-maker.js";
+import taskMaker from "./js-task-maker.js";
+import taskChecklistMaker from "./js-task-checklist-maker.js";
 
 function projectMaker(projectFields = {}) {
     let project = {
@@ -21,10 +21,13 @@ function projectMaker(projectFields = {}) {
     };
 
     const addTask = (taskFields = {}, extra = {}) => {
-        let task = taskMaker(taskFields);
+        let task = {};
 
-        if (extra.checklist.length) {
+        if (extra.checklist) {
             task = taskChecklistMaker(taskFields, extra.checklist);
+        }
+        else {
+            task = taskMaker(taskFields);
         }
 
         taskList.push(task);

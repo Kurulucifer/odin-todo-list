@@ -1,10 +1,17 @@
-import taskMaker from './task-maker.js';
+import taskMaker from './js-task-maker.js';
 
-function taskChecklistMaker(initTaskFields, initItems) {
+function taskChecklistMaker(initTaskFields, initChecklist) {
     const task = taskMaker(initTaskFields);
     task.updateField( {type: "checklist"} );
 
-    let items = initItems.map(label => ( { label: label, done: false} ));
+    let items = [];
+
+    if (initChecklist.load) {
+        items = initChecklist.content;
+    }
+    else {
+        items = initChecklist.content.map(label => ( { label: label, done: false} ));
+    }
 
     const getAllItems = () => [...items];
 

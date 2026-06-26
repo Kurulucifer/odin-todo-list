@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parseJSON } from "date-fns";
 
 function domTaskMaker(task) {
     const taskCardTemplate = document.getElementById("task-card-template").content.querySelector(".task");
@@ -24,8 +24,8 @@ function domTaskMaker(task) {
     name.textContent = task.getField("name");
     details.textContent = task.getField("details");
     notes.innerText = task.getField("notes"); // support line breaks
-    date.textContent = format(task.getField("date"), "M/d");
-    time.textContent = format(task.getField("date"), "H:mm");
+    date.textContent = format(parseJSON(task.getField("date")), "M/d");
+    time.textContent = format(parseJSON(task.getField("date")), "H:mm");
     
     if (task.getField("type") === "checklist") {
         makeChecklistItems(taskCard, task);
@@ -83,6 +83,11 @@ function attachToggleItemListener(taskCard, task) {
     checklist.addEventListener('toggle-item', (e) => {
         task.toggleItem(e.detail.label);
         e.target.classList.toggle("done");
+
+        const updateStorage = new CustomEvent('update-storage', {
+            bubbles: true,
+        });
+        taskCard.dispatchEvent(updateStorage);
     })
 }
 function attachItemCheckboxListeners(taskCard) {

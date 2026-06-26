@@ -1,13 +1,12 @@
-import { add, format, parse, set } from "date-fns";
+import { format, parse, set } from "date-fns";
 
 function domNewTaskCardMaker(taskFields = {}) {
-
     // this will add "id", "type", "done"
     // if they are available from an existing task while editing
     // otherwise they will be filled by taskMaker
     let task = {
         name: "New Task",
-        date: new Date(),
+        date: new Date().toISOString(),
         details: "Details",
         notes: "Notes", 
         priority: "low",
@@ -185,10 +184,10 @@ function updateTaskFields(currentCard, task) {
     const dateTimeField = set(date, {
         hours: time.getHours(),
         minutes: time.getMinutes(),
-    });
+    }).toISOString();
 
     // checklist
-    const checklistField = [];
+    let checklistField = [];
     const checklist = currentCard.querySelector(".checklist");
     if (checklist) {
         const checklistItems = checklist.querySelectorAll(".checklist-item");
@@ -196,6 +195,10 @@ function updateTaskFields(currentCard, task) {
             const label = item.querySelector(".item-content").textContent.trim() || "Checklist item";
             checklistField.push(label);
         }
+    }
+    else {
+        // task will not use task-checklist-maker
+        checklistField = false;
     }
 
     // MAYBE add functionality to save item done status through edits...
